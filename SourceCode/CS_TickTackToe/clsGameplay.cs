@@ -47,7 +47,7 @@ namespace CS_TickTackToe
 			bytCurrentPositions[intDim1, intDim2] = bytPlayer;
 
 			//Check for a win
-			bytWin = CheckWin();
+			bytWin = CheckForWin();
 		}
 
 		public void ComputerMoveAI()
@@ -74,7 +74,7 @@ namespace CS_TickTackToe
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
-				byte[] bytMove = TwoInSequence(1);
+				byte[] bytMove = FindTwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
                     ComputerMoveSequence(bytMove);
@@ -93,8 +93,8 @@ namespace CS_TickTackToe
 				//move to make it makes a defensive move
 				//if there is no offensive move and
 				//no defensive more it makes a random move
-				byte[] bytMove = TwoInSequence(2);
-				byte[] bytMove2 = TwoInSequence(1);
+				byte[] bytMove = FindTwoInSequence(2);
+				byte[] bytMove2 = FindTwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
                     ComputerMoveSequence(bytMove);
@@ -157,90 +157,65 @@ namespace CS_TickTackToe
             }
         }
 
-		//0 = no win
-		//1 = human won
-		//2 = comp one
-		public byte CheckWin()
+		public byte CheckForWin()
 		{
 			//Check for a horizontal win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[i,0] == 1 &&
-					bytCurrentPositions[i,1] == 1 &&
-					bytCurrentPositions[i,2] == 1)
-				{
-					//Human won
-					return 1;
-				}
-			}
-
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == 2 &&
-					bytCurrentPositions[i,1] == 2 &&
-					bytCurrentPositions[i,2] == 2)
-				{
-					//Computer won
-					return 2;
-				}
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[i, 0] == ii &&
+                        bytCurrentPositions[i, 1] == ii &&
+                        bytCurrentPositions[i, 2] == ii)
+                    {
+                        return ii;
+                    }
+                }
 			}
 
 			//Check for a vertical win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[0,i] == 1 &&
-					bytCurrentPositions[1,i] == 1 &&
-					bytCurrentPositions[2,i] == 1)
-				{
-					//Human won
-					return 1;
-				}
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, i] == ii &&
+                        bytCurrentPositions[1, i] == ii &&
+                        bytCurrentPositions[2, i] == ii)
+                    {
+                        return ii;
+                    }
+                }
 			}
 
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == 2 &&
-					bytCurrentPositions[1,i] == 2 &&
-					bytCurrentPositions[2,i] == 2)
-				{
-					//Computer won
-					return 2;
-				}
-			}
+            //Check for diagonal down win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 0] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 2] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
+            
+            //Check for diagonal up win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 2] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 0] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
 
-			//Check for diagnol win
-			if (bytCurrentPositions[0,0] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,2] == 1)
-			{
-				//Human won
-				return 1;
-			}
-
-			if (bytCurrentPositions[0,2] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,0] == 1)
-			{
-				//Human won
-				return 1;
-			}
-
-			if (bytCurrentPositions[0,0] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,2] == 2)
-			{
-				//Computer won
-				return 2;
-			}
-
-			if (bytCurrentPositions[0,2] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,0] == 2)
-			{
-				//Computer won
-				return 2;
-			}
-			return 0;
+			return 0; //No winner
 		}
 
 		public bool CheckTie()
@@ -291,7 +266,7 @@ namespace CS_TickTackToe
 		// x| |     x| |      | |
 		//  | |      |x|      |x|
 		//  | |x     | |      | |x
-		public byte[] TwoInSequence(byte bytPlayer)
+		public byte[] FindTwoInSequence(byte bytPlayer)
 		{
 			byte[] bytMove = new byte[2];
 
