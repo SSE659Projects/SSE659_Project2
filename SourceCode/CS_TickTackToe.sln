@@ -2,6 +2,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_TickTackToe", "CS_TickTackToe\CS_TickTackToe.csproj", "{556AB70D-5FBB-436F-9D4D-93C3214F935A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_TickTackToe.Tests", "..\TestCode\CS_TickTackToe.Tests\CS_TickTackToe.Tests.csproj", "{0A8FD4D6-4DD8-4618-B544-8B6D913B4225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,6 +14,10 @@ Global
 		{556AB70D-5FBB-436F-9D4D-93C3214F935A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{556AB70D-5FBB-436F-9D4D-93C3214F935A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{556AB70D-5FBB-436F-9D4D-93C3214F935A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8FD4D6-4DD8-4618-B544-8B6D913B4225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8FD4D6-4DD8-4618-B544-8B6D913B4225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8FD4D6-4DD8-4618-B544-8B6D913B4225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8FD4D6-4DD8-4618-B544-8B6D913B4225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

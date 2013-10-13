@@ -18,10 +18,10 @@ namespace CS_TickTackToe
 		//0 = easy, 1 = medium, 2 = hard
 		public byte bytDifficulty = 0;
 
-		private PictureBox picO;
+		public PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
-		private byte[,] bytCurrentPositions = new byte[3,3];
+		public byte[,] bytCurrentPositions = new byte[3,3];
 
 		public clsGameplay(PictureBox picOHolder)
 		{
@@ -49,52 +49,27 @@ namespace CS_TickTackToe
 			bytWin = CheckWin();
 		}
 
-		public void MoveComputer()
+		public void ComputerMoveAI()
 		{
 			if (bytDifficulty == 0)
 			{
-#region Easy
 				//Wierd ai, but just pic
 				//two random numbers between
 				//0 and 2 and check if the spot
 				//is taken, if not take it
 				try
 				{
-					System.Random rnd = new System.Random();
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
 					System.GC.Collect();
-
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Recursively try again
-						MoveComputer();
-					}
+                    RandomComputerMove();
 				}
 				catch (System.Exception e)
 				{
 					clsPicCol.sbStatus.Panels[1].Text = e.Message;
 					clsPicCol.sbStatus.Panels[1].ToolTipText = e.Message;
 				}
-#endregion
 			}
 			else if (bytDifficulty == 1)
 			{
-#region Medium
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
@@ -119,36 +94,11 @@ namespace CS_TickTackToe
 				{
 					//If no defensive move then
 					//go random again
-					System.Random rnd = new System.Random();
-				RetryRandom:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
-
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom;
-					}
+                    RandomComputerMove();
 				}
-#endregion
 			}
 			else if (bytDifficulty == 2)
 			{
-#region Hard
 				//This algorithm looks for an offensive
 				//move to make, if there is no offensive
 				//move to make it makes a defensive move
@@ -192,42 +142,44 @@ namespace CS_TickTackToe
 				{
 					//If no defensive or offensive move so
 					//go random again
-					System.Random rnd = new System.Random();
-				RetryRandom2:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
-
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom2;
-					}
+                    RandomComputerMove();
 				}
-#endregion
 			}
 			bytCurrentPlayer = 1;
 		}
+
+        public void RandomComputerMove()
+        {
+            System.Random rnd = new System.Random();
+
+            int pos1 = rnd.Next(1, 4);
+            int pos2 = rnd.Next(1, 4);
+
+            if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+            {
+                SetPosition(2, pos1 - 1, pos2 - 1);
+                int i;
+                for (i = 0; i < clsPicCol.Count; i++)
+                {
+                    if (clsPicCol[i].Name.Equals("pic" + pos1.ToString()
+                        + pos2.ToString()))
+                    {
+                        clsPicCol[i].Image = picO.Image;
+                    }
+                }
+            }
+            else
+            {
+                //Retry random number generation
+                RandomComputerMove();
+            }
+        }
 
 		//0 = no win
 		//1 = human won
 		//2 = comp one
 		public byte CheckWin()
 		{
-#region Check for a win
 			//Check for a horizontal win
 			for (int i = 0; i <= 2; i++)
 			{
@@ -307,7 +259,6 @@ namespace CS_TickTackToe
 				return 2;
 			}
 			return 0;
-#endregion
 		}
 
 		public bool CheckTie()
@@ -362,7 +313,6 @@ namespace CS_TickTackToe
 		{
 			byte[] bytMove = new byte[2];
 
-#region Check for a sequence horizontally
 			for (byte i = 0; i <= 2; i++)
 			{
 				if (bytCurrentPositions[i,0] == bytPlayer &&
@@ -391,10 +341,8 @@ namespace CS_TickTackToe
 					bytMove[1] = 0;
 					return bytMove;
 				}
-			}	
-#endregion
+			}
 
-#region Check for a sequence verically
 			for (byte i = 0; i <= 2; i++)
 			{
 				if (bytCurrentPositions[0,i] == bytPlayer &&
@@ -424,9 +372,7 @@ namespace CS_TickTackToe
 					return bytMove;
 				}
 			}	
-#endregion
 
-#region Check for a sequence Diagonally
 			//Diagonally with negative slope
 			if (bytCurrentPositions[0,0] == bytPlayer &&
 				bytCurrentPositions[1,1] == bytPlayer &&
@@ -482,7 +428,6 @@ namespace CS_TickTackToe
 				bytMove[1] = 2;
 				return bytMove;
 			}
-#endregion
 
 			bytMove[0] = 10;
 			bytMove[1] = 10;
