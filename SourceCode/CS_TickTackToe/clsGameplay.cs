@@ -54,14 +54,11 @@ namespace CS_TickTackToe
 		{
 			if (bytDifficulty == 0)
 			{
-				//Wierd ai, but just pic
-				//two random numbers between
-				//0 and 2 and check if the spot
-				//is taken, if not take it
 				try
 				{
 					System.GC.Collect();
-                    RandomComputerMove();
+                    System.Random rnd = new System.Random();
+                    RetryRandomComputerMove(rnd);
 				}
 				catch (System.Exception e)
 				{
@@ -83,7 +80,8 @@ namespace CS_TickTackToe
 				{
 					//If no defensive move then
 					//go random again
-                    RandomComputerMove();
+                    System.Random rnd = new System.Random();
+                    RetryRandomComputerMove(rnd);
 				}
 			}
 			else if (bytDifficulty == 2)
@@ -107,18 +105,17 @@ namespace CS_TickTackToe
 				{
 					//If no defensive or offensive move so
 					//go random again
-                    RandomComputerMove();
+                    System.Random rnd = new System.Random();
+                    RetryRandomComputerMove(rnd);
 				}
 			}
 			bytCurrentPlayer = 1;
 		}
 
-        public void RandomComputerMove()
+        public void RetryRandomComputerMove(Random randomNumber)
         {
-            System.Random rnd = new System.Random();
-
-            int pos1 = rnd.Next(1, 4);
-            int pos2 = rnd.Next(1, 4);
+            int pos1 = randomNumber.Next(1, 4);
+            int pos2 = randomNumber.Next(1, 4);
 
             if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
             {
@@ -136,7 +133,7 @@ namespace CS_TickTackToe
             else
             {
                 //Retry random number generation
-                RandomComputerMove();
+                RetryRandomComputerMove(randomNumber);
             }
         }
 
@@ -218,7 +215,7 @@ namespace CS_TickTackToe
 			return 0; //No winner
 		}
 
-		public bool CheckTie()
+		public bool CheckForTie()
 		{
 			//Loop through all of the positions
 			//and check their status, if even 
@@ -239,156 +236,158 @@ namespace CS_TickTackToe
 			return true;
 		}
 
-		//Checks if the current player has
-		//two in a sequence, if so it
-		//returns the corrodinates needed for
-		//the player to get three in a row
-		//or the opponent to block.
-
-		//A sequence counts as two in any
-		//row or column for the specified
-		//player for example:
-
-		//The x's can be in any row and still
-		//work
-		// x| |x     |x|x    x|x|  
-		//  | |      | |      | |
-		//  | |      | |      | |
-
-		//The x's can be in any column and still
-		//work
-		// x| |     x| |      | |  
-		//  | |     x| |     x| |
-		// x| |      | |     x| |
-
-		//The x's can be in either a positively (/)
-		//or negitively sloped like (\)
-		// x| |     x| |      | |
-		//  | |      |x|      |x|
-		//  | |x     | |      | |x
 		public byte[] FindTwoInSequence(byte bytPlayer)
 		{
 			byte[] bytMove = new byte[2];
 
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 2;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,1] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 1;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,0] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 0;
-					return bytMove;
-				}
-			}
-
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == 0)
-				{
-					bytMove[0] = 2;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == 0)
-				{
-					bytMove[0] = 1;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[0,i] == 0)
-				{
-					bytMove[0] = 0;
-					bytMove[1] = i;
-					return bytMove;
-				}
-			}	
-
-			//Diagonally with negative slope
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[0,0] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			//Diagonally with positive slope
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[0,2] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-
-			bytMove[0] = 10;
-			bytMove[1] = 10;
-			return bytMove;
+            if (FoundHorizontalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundVerticalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalDownSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalUpSequence(bytMove, bytPlayer))
+                return bytMove;
+            else
+            {
+                bytMove[0] = 10;
+                bytMove[1] = 10;
+                return bytMove;
+            }
 		}
+
+        public bool FoundHorizontalSequence(byte [] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 2;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 1;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 0] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 0;
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        public bool FoundVerticalSequence(byte [] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == 0)
+                {
+                    bytMoveArray[0] = 2;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == 0)
+                {
+                    bytMoveArray[0] = 1;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[0, i] == 0)
+                {
+                    bytMoveArray[0] = 0;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FoundDiagonalUpSequence(byte [] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[2, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == bytPlayer &&
+                 bytCurrentPositions[0, 2] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+            
+            else
+                return false;
+        }
+
+        public bool FoundDiagonalDownSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[0, 0] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else
+                return false;
+        }
 	}//End class
 }//End Namespace
