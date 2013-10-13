@@ -27,6 +27,7 @@ namespace CS_TickTackToe
 		{
 			picO = picOHolder;
 		}
+
 		public void NewGame()
 		{
 			//Rest all of the variables
@@ -76,19 +77,7 @@ namespace CS_TickTackToe
 				byte[] bytMove = TwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove);
 				}
 				else
 				{
@@ -108,35 +97,11 @@ namespace CS_TickTackToe
 				byte[] bytMove2 = TwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove);
 				}
 				else if (bytMove2[0] != 10 && bytMove2[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove2[0]),
-						Convert.ToInt32(bytMove2[1]));
-					bytMove2[0]++;
-					bytMove2[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove2[0].ToString() 
-							+ bytMove2[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove2);
 				}
 				else
 				{
@@ -172,6 +137,23 @@ namespace CS_TickTackToe
             {
                 //Retry random number generation
                 RandomComputerMove();
+            }
+        }
+
+        public void ComputerMoveSequence(byte [] bytMoveArray)
+        {
+            SetPosition(2, Convert.ToInt32(bytMoveArray[0]),
+                        Convert.ToInt32(bytMoveArray[1]));
+            bytMoveArray[0]++;
+            bytMoveArray[1]++;
+            int i;
+            for (i = 0; i < clsPicCol.Count; i++)
+            {
+                if (clsPicCol[i].Name.Equals("pic" + bytMoveArray[0].ToString()
+                    + bytMoveArray[1].ToString()))
+                {
+                    clsPicCol[i].Image = picO.Image;
+                }
             }
         }
 
