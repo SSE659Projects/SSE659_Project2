@@ -18,10 +18,10 @@ namespace CS_TickTackToe
 		//0 = easy, 1 = medium, 2 = hard
 		public byte bytDifficulty = 0;
 
-		private PictureBox picO;
+		public PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
-		private byte[,] bytCurrentPositions = new byte[3,3];
+		public byte[,] bytCurrentPositions = new byte[3,3];
 
 		public clsGameplay(PictureBox picOHolder)
 		{
