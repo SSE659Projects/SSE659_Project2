@@ -457,10 +457,10 @@ namespace CS_TickTackToe
 		private void mnuNewGame_Click(object sender, System.EventArgs e)
 		{
 			clsGame.NewGame();
-			clsGame.intCompScore = 0;
-			clsGame.intHumanScore = 0;
-			sbGameStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-				+ " Computer: " + clsGame.intCompScore.ToString();
+            picHolders.intComputerOpponentScore = 0;
+            picHolders.intPlayerScore = 0;
+            sbGameStatus.Panels[1].Text = "You: " + picHolders.intPlayerScore.ToString()
+                + " Computer: " + picHolders.intComputerOpponentScore.ToString();
 		}
 	}//End class
 }//End Namespace

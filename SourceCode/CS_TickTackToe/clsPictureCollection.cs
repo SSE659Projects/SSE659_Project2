@@ -15,6 +15,8 @@ namespace CS_TickTackToe
 		private readonly Form frmHost;
 
 		public StatusBar sbStatus;
+        public int intPlayerScore = 0;
+        public int intComputerOpponentScore = 0;
 
 		public clsPictureCollection(Form frmSetHost, clsGameplay clsCurrentGame,
 			PictureBox picXHolder)
@@ -60,7 +62,7 @@ namespace CS_TickTackToe
 				{
 					picBox.Image = picX.Image;
 					string strDim = picBox.Name.Substring(3);
-					clsGame.SetPosition(1, Convert.ToInt32(strDim.Substring(0, 1)) - 1,
+					clsGame.SetBoardPosition(1, Convert.ToInt32(strDim.Substring(0, 1)) - 1,
 						Convert.ToInt32(strDim.Substring(1)) - 1);
 				}
 				else
@@ -73,17 +75,17 @@ namespace CS_TickTackToe
 				//this is done twice to make it as optimal as possible!
 				if (clsGame.bytWin == 1)
 				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
+                    intPlayerScore++;
+                    sbStatus.Panels[1].Text = "You: " + intPlayerScore.ToString()
+                        + " Computer: " + intComputerOpponentScore.ToString();
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
 				else if (clsGame.bytWin == 2)
 				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
+                    intComputerOpponentScore++;
+                    sbStatus.Panels[1].Text = "You: " + intPlayerScore.ToString()
+                        + " Computer: " + intComputerOpponentScore.ToString();
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
@@ -103,17 +105,17 @@ namespace CS_TickTackToe
 				//this is done twice to make it as optimal as possible!
 				if (clsGame.bytWin == 1)
 				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
+                    intPlayerScore++;
+                    sbStatus.Panels[1].Text = "You: " + intPlayerScore.ToString()
+                        + " Computer: " + intComputerOpponentScore.ToString();
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
 				else if (clsGame.bytWin == 2)
 				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
+                    intComputerOpponentScore++;
+                    sbStatus.Panels[1].Text = "You: " + intPlayerScore.ToString()
+                        + " Computer: " + intComputerOpponentScore.ToString();
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
