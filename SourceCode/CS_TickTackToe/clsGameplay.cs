@@ -2,6 +2,7 @@
 // setting the positions on the Tic Tac Toe board, the logic method for
 // the computer opponent's AI, determining winning combinations, and 
 // checking for a tied game.
+//
 using System;
 using System.Windows.Forms;
 
@@ -11,13 +12,13 @@ namespace CS_TickTackToe
 	{
 		public byte bytCurrentPlayer = 1; // 1 = Player (Default), 2 = Computer Opponent
 		public clsPictureCollection clsPicCol;
-		public byte bytWin = 0;
+		public byte bytWinType = 0;
 		public byte bytDifficulty = 0; // 0 = Easy (Default), 1 = Medium, 2 = Hard
 
 		public PictureBox picO;
 		public byte[,] bytCurrentPositions = new byte[3,3]; // 0 = Not set, 1 = Player, 2 = Computer Opponent
 
-        // Function for setting up the PictureBox
+        // Constructor for clsGameplay
 		public clsGameplay(PictureBox picOHolder)
 		{
 			picO = picOHolder;
@@ -41,7 +42,7 @@ namespace CS_TickTackToe
 		public void SetBoardPosition(byte bytPlayer, int intDim1, int intDim2)
 		{
 			bytCurrentPositions[intDim1, intDim2] = bytPlayer;
-			bytWin = CheckForWin(); 
+            bytWinType = CheckForWin(); 
 		}
 
         // Function for determining the Computer opponent AI based on player's choice
