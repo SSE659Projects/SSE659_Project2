@@ -53,7 +53,6 @@ namespace CS_TickTackToe
 		{
 			if (bytDifficulty == 0)
 			{
-#region Easy
 				//Wierd ai, but just pic
 				//two random numbers between
 				//0 and 2 and check if the spot
@@ -70,30 +69,16 @@ namespace CS_TickTackToe
 					clsPicCol.sbStatus.Panels[1].Text = e.Message;
 					clsPicCol.sbStatus.Panels[1].ToolTipText = e.Message;
 				}
-#endregion
 			}
 			else if (bytDifficulty == 1)
 			{
-#region Medium
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
 				byte[] bytMove = TwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove);
 				}
 				else
 				{
@@ -102,11 +87,9 @@ namespace CS_TickTackToe
 					System.Random rnd = new System.Random();
                     RandomComputerMove(rnd);
 				}
-#endregion
 			}
 			else if (bytDifficulty == 2)
 			{
-#region Hard
 				//This algorithm looks for an offensive
 				//move to make, if there is no offensive
 				//move to make it makes a defensive move
@@ -116,35 +99,11 @@ namespace CS_TickTackToe
 				byte[] bytMove2 = TwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove);
 				}
 				else if (bytMove2[0] != 10 && bytMove2[1] != 10)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove2[0]),
-						Convert.ToInt32(bytMove2[1]));
-					bytMove2[0]++;
-					bytMove2[1]++;
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove2[0].ToString() 
-							+ bytMove2[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    ComputerMoveSequence(bytMove2);
 				}
 				else
 				{
@@ -153,7 +112,6 @@ namespace CS_TickTackToe
 					System.Random rnd = new System.Random();
                     RandomComputerMove(rnd);
 				}
-#endregion
 			}
 			bytCurrentPlayer = 1;
 		}
@@ -183,13 +141,29 @@ namespace CS_TickTackToe
             }
         }
 
+        public void ComputerMoveSequence(byte[] bytMoveArray)
+        {
+            SetPosition(2, Convert.ToInt32(bytMoveArray[0]),
+                        Convert.ToInt32(bytMoveArray[1]));
+            bytMoveArray[0]++;
+            bytMoveArray[1]++;
+            int i;
+            for (i = 0; i < clsPicCol.Count; i++)
+            {
+                if (clsPicCol[i].Name.Equals("pic" +
+                    bytMoveArray[0].ToString()
+                    + bytMoveArray[1].ToString()))
+                {
+                    clsPicCol[i].Image = picO.Image;
+                }
+            }
+        }
 
 		//0 = no win
 		//1 = human won
 		//2 = comp one
 		public byte CheckWin()
 		{
-#region Check for a win
 			//Check for a horizontal win
 			for (int i = 0; i <= 2; i++)
 			{
@@ -269,7 +243,6 @@ namespace CS_TickTackToe
 				return 2;
 			}
 			return 0;
-#endregion
 		}
 
 		public bool CheckTie()
@@ -324,7 +297,6 @@ namespace CS_TickTackToe
 		{
 			byte[] bytMove = new byte[2];
 
-#region Check for a sequence horizontally
 			for (byte i = 0; i <= 2; i++)
 			{
 				if (bytCurrentPositions[i,0] == bytPlayer &&
@@ -354,9 +326,7 @@ namespace CS_TickTackToe
 					return bytMove;
 				}
 			}	
-#endregion
 
-#region Check for a sequence verically
 			for (byte i = 0; i <= 2; i++)
 			{
 				if (bytCurrentPositions[0,i] == bytPlayer &&
@@ -386,9 +356,7 @@ namespace CS_TickTackToe
 					return bytMove;
 				}
 			}	
-#endregion
 
-#region Check for a sequence Diagonally
 			//Diagonally with negative slope
 			if (bytCurrentPositions[0,0] == bytPlayer &&
 				bytCurrentPositions[1,1] == bytPlayer &&
@@ -444,7 +412,6 @@ namespace CS_TickTackToe
 				bytMove[1] = 2;
 				return bytMove;
 			}
-#endregion
 
 			bytMove[0] = 10;
 			bytMove[1] = 10;
