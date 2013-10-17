@@ -16,13 +16,25 @@ namespace CS_TickTackToe
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
 		public byte bytWin = 0;
-		//0 = easy, 1 = medium, 2 = hard
-		public byte bytDifficulty = 0;
+
+        public enum EGameDifficulty
+        {
+            E_EASY,
+            E_MEDIUM,
+            E_HARD
+        };
+
+        private EGameDifficulty m_GameDifficulty = EGameDifficulty.E_EASY;
 
 		public PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
 		public byte[,] bytCurrentPositions = new byte[3,3];
+
+        public EGameDifficulty GameDifficulty
+        {
+            set { m_GameDifficulty = value; }
+        }
 
 		public clsGameplay(PictureBox picOHolder)
 		{
@@ -52,7 +64,7 @@ namespace CS_TickTackToe
 
 		public void MoveComputer()
 		{
-			if (bytDifficulty == 0)
+            if (m_GameDifficulty == EGameDifficulty.E_EASY)
 			{
 #region Easy
 				//Wierd ai, but just pic
@@ -93,7 +105,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			else if (bytDifficulty == 1)
+            else if (m_GameDifficulty == EGameDifficulty.E_MEDIUM)
 			{
 #region Medium
 				//A defensive algorithm
@@ -145,7 +157,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			else if (bytDifficulty == 2)
+            else if (m_GameDifficulty == EGameDifficulty.E_HARD)
 			{
 #region Hard
 				//This algorithm looks for an offensive
