@@ -75,7 +75,7 @@ namespace CS_TickTackToe
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
-				byte[] bytMove = TwoInSequence(1);
+                byte[] bytMove = FindTwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
                     ComputerMoveSequence(bytMove);
@@ -95,8 +95,8 @@ namespace CS_TickTackToe
 				//move to make it makes a defensive move
 				//if there is no offensive move and
 				//no defensive more it makes a random move
-				byte[] bytMove = TwoInSequence(2);
-				byte[] bytMove2 = TwoInSequence(1);
+                byte[] bytMove = FindTwoInSequence(2);
+                byte[] bytMove2 = FindTwoInSequence(1);
 				if (bytMove[0] != 10 && bytMove[1] != 10)
 				{
                     ComputerMoveSequence(bytMove);
@@ -271,7 +271,7 @@ namespace CS_TickTackToe
 		// x| |     x| |      | |
 		//  | |      |x|      |x|
 		//  | |x     | |      | |x
-		public byte[] TwoInSequence(byte bytPlayer)
+		public byte[] FindTwoInSequence(byte bytPlayer)
 		{
 			byte[] bytMove = new byte[2];
 
