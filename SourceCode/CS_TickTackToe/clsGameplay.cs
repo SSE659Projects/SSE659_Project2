@@ -290,7 +290,7 @@ namespace CS_TickTackToe
 #endregion
 		}
 
-		public bool CheckTie()
+		public bool CheckForTie()
 		{
 			//Loop through all of the positions
 			//and check their status, if even 
