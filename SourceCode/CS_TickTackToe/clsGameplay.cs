@@ -164,85 +164,63 @@ namespace CS_TickTackToe
 		//2 = comp one
 		public byte CheckForWin()
 		{
-			//Check for a horizontal win
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == 1 &&
-					bytCurrentPositions[i,1] == 1 &&
-					bytCurrentPositions[i,2] == 1)
-				{
-					//Human won
-					return 1;
-				}
-			}
+            //Check for a horizontal win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[i, 0] == ii &&
+                        bytCurrentPositions[i, 1] == ii &&
+                        bytCurrentPositions[i, 2] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
 
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == 2 &&
-					bytCurrentPositions[i,1] == 2 &&
-					bytCurrentPositions[i,2] == 2)
-				{
-					//Computer won
-					return 2;
-				}
-			}
+            //Check for a vertical win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, i] == ii &&
+                        bytCurrentPositions[1, i] == ii &&
+                        bytCurrentPositions[2, i] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
 
-			//Check for a vertical win
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == 1 &&
-					bytCurrentPositions[1,i] == 1 &&
-					bytCurrentPositions[2,i] == 1)
-				{
-					//Human won
-					return 1;
-				}
-			}
+            //Check for diagonal negative slope win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 0] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 2] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
 
-			for (int i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == 2 &&
-					bytCurrentPositions[1,i] == 2 &&
-					bytCurrentPositions[2,i] == 2)
-				{
-					//Computer won
-					return 2;
-				}
-			}
+            //Check for diagonal positive slope win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 2] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 0] == ii)
+                    {
+                        return ii;
+                    }
+                }
+            }
 
-			//Check for diagnol win
-			if (bytCurrentPositions[0,0] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,2] == 1)
-			{
-				//Human won
-				return 1;
-			}
-
-			if (bytCurrentPositions[0,2] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,0] == 1)
-			{
-				//Human won
-				return 1;
-			}
-
-			if (bytCurrentPositions[0,0] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,2] == 2)
-			{
-				//Computer won
-				return 2;
-			}
-
-			if (bytCurrentPositions[0,2] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,0] == 2)
-			{
-				//Computer won
-				return 2;
-			}
-			return 0;
+            return 0; //No winner
 		}
 
 		public bool CheckTie()
