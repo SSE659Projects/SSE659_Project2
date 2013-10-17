@@ -10,8 +10,16 @@ namespace CS_TickTackToe
 	public class clsGameplay
 	{
         const int UNDEFINED_MOVE = 10;
-		//1 = human 2 = comp
-		public byte bytCurrentPlayer = 1;
+		
+        public enum EPlayer
+        {
+            E_NOT_SET_OR_DEFINED,
+            E_HUMAN,
+            E_COMPUTER
+        };
+
+        private EPlayer m_Player = EPlayer.E_HUMAN;
+
 		public int intHumanScore = 0;
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
@@ -31,6 +39,11 @@ namespace CS_TickTackToe
 		//0 = not set, 1 = human, 2 = computer
 		public byte[,] bytCurrentPositions = new byte[3,3];
 
+        public EPlayer Player
+        {
+            get { return m_Player; }
+            set { m_Player = value; }
+        }
         public EGameDifficulty GameDifficulty
         {
             set { m_GameDifficulty = value; }
@@ -47,7 +60,7 @@ namespace CS_TickTackToe
 			{
 				for (int ii = 0; ii <= 2; ii++)
 				{
-					bytCurrentPositions[i, ii] = 0;			
+                    bytCurrentPositions[i, ii] = 0;		
 				}				
 			}
 			//Reset the pictures
@@ -226,7 +239,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			bytCurrentPlayer = 1;
+            m_Player = EPlayer.E_HUMAN;
 		}
 
 		//0 = no win
