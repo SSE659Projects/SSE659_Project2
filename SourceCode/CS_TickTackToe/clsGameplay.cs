@@ -62,14 +62,14 @@ namespace CS_TickTackToe
 				try
 				{
 					System.Random rnd = new System.Random();
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
+					int pos1 = rnd.Next(0, 3);
+					int pos2 = rnd.Next(0, 3);
 					System.GC.Collect();
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
+						SetPosition(2, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{
@@ -104,8 +104,6 @@ namespace CS_TickTackToe
 				{
 					SetPosition(2, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
 					{
@@ -122,13 +120,13 @@ namespace CS_TickTackToe
 					//go random again
 					System.Random rnd = new System.Random();
 				RetryRandom:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
+					int pos1 = rnd.Next(0, 3);
+					int pos2 = rnd.Next(0, 3);
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
+						SetPosition(2, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{
@@ -161,8 +159,6 @@ namespace CS_TickTackToe
 				{
 					SetPosition(2, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
-					bytMove[0]++;
-					bytMove[1]++;
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
 					{
@@ -177,8 +173,6 @@ namespace CS_TickTackToe
 				{
 					SetPosition(2, Convert.ToInt32(bytMove2[0]),
 						Convert.ToInt32(bytMove2[1]));
-					bytMove2[0]++;
-					bytMove2[1]++;
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
 					{
@@ -195,13 +189,13 @@ namespace CS_TickTackToe
 					//go random again
 					System.Random rnd = new System.Random();
 				RetryRandom2:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
+					int pos1 = rnd.Next(0, 3);
+					int pos2 = rnd.Next(0, 3);
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
+						SetPosition(2, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{

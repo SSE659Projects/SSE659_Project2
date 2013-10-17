@@ -60,8 +60,8 @@ namespace CS_TickTackToe
 				{
 					picBox.Image = picX.Image;
 					string strDim = picBox.Name.Substring(3);
-					clsGame.SetPosition(1, Convert.ToInt32(strDim.Substring(0, 1)) - 1,
-						Convert.ToInt32(strDim.Substring(1)) - 1);
+					clsGame.SetPosition(1, Convert.ToInt32(strDim.Substring(0, 1)),
+						Convert.ToInt32(strDim.Substring(1)));
 				}
 				else
 				{
