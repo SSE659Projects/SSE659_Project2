@@ -61,29 +61,9 @@ namespace CS_TickTackToe
 				try
 				{
 					System.Random rnd = new System.Random();
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
 					System.GC.Collect();
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Recursively try again
-						ComputerMoveAI();
-					}
+                    RandomComputerMove(rnd);
 				}
 				catch (System.Exception e)
 				{
@@ -120,29 +100,7 @@ namespace CS_TickTackToe
 					//If no defensive move then
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
-
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom;
-					}
+                    RandomComputerMove(rnd);
 				}
 #endregion
 			}
@@ -193,34 +151,38 @@ namespace CS_TickTackToe
 					//If no defensive or offensive move so
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom2:
-					int pos1 = rnd.Next(1, 4);
-					int pos2 = rnd.Next(1, 4);
-
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
-					{
-						//No one is using it so good to go
-						SetPosition(2, pos1 - 1, pos2 - 1);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom2;
-					}
+                    RandomComputerMove(rnd);
 				}
 #endregion
 			}
 			bytCurrentPlayer = 1;
 		}
+
+        public void RandomComputerMove(Random randomNumber)
+        {
+            int pos1 = randomNumber.Next(1, 4);
+            int pos2 = randomNumber.Next(1, 4);
+
+            if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+            {
+                SetPosition(2, pos1 - 1, pos2 - 1);
+                int i;
+                for (i = 0; i < clsPicCol.Count; i++)
+                {
+                    if (clsPicCol[i].Name.Equals("pic" + pos1.ToString()
+                        + pos2.ToString()))
+                    {
+                        clsPicCol[i].Image = picO.Image;
+                    }
+                }
+            }
+            else
+            {
+                //Retry random number generation
+                RandomComputerMove(randomNumber);
+            }
+        }
+
 
 		//0 = no win
 		//1 = human won
