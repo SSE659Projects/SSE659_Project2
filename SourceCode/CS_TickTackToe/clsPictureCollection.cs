@@ -96,7 +96,7 @@ namespace CS_TickTackToe
 				//You took your turn so now it is the computers turn
                 clsGame.Player = clsGameplay.EPlayer.E_COMPUTER;
 				sbStatus.Panels[0].Text = "Computer's Move";
-				clsGame.MoveComputer();
+                clsGame.ComputerMoveAI();
 				sbStatus.Panels[0].Text = "Your Move";
 
 				//Check the status of the game winner/tie/still going

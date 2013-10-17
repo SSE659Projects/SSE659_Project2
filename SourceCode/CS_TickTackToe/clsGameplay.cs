@@ -80,7 +80,7 @@ namespace CS_TickTackToe
             m_Winner = CheckWin();
 		}
 
-		public void MoveComputer()
+		public void ComputerMoveAI()
 		{
             if (m_GameDifficulty == EGameDifficulty.E_EASY)
 			{
@@ -105,7 +105,7 @@ namespace CS_TickTackToe
 					else
 					{
 						//Recursively try again
-						MoveComputer();
+						ComputerMoveAI();
 					}
 				}
 				catch (System.Exception e)
