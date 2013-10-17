@@ -87,7 +87,7 @@ namespace CS_TickTackToe
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
-				else if (clsGame.CheckTie() == true)
+                else if (clsGame.CheckForTie() == true)
 				{
 					MessageBox.Show("The game resulted in a tie.");
 					clsGame.NewGame();
@@ -117,7 +117,7 @@ namespace CS_TickTackToe
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
-				else if (clsGame.CheckTie() == true)
+                else if (clsGame.CheckForTie() == true)
 				{
 					MessageBox.Show("The game resulted in a tie.");
 					clsGame.NewGame();

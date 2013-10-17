@@ -223,7 +223,7 @@ namespace CS_TickTackToe
             return 0; //No winner
 		}
 
-		public bool CheckTie()
+		public bool CheckForTie()
 		{
 			//Loop through all of the positions
 			//and check their status, if even 
