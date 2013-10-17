@@ -54,7 +54,9 @@ namespace CS_TickTackToe
 		public void Picture_Click(Object sender, System.EventArgs e)
 		{
 			PictureBox picBox = (PictureBox) sender;
-			if (clsGame.bytCurrentPlayer == 1)
+			//if (clsGame.bytCurrentPlayer == 1)
+            //if(clsGame.getCurrentPlayer() == clsGameplay.EPlayer.E_HUMAN)
+            if (clsGame.Player == clsGameplay.EPlayer.E_HUMAN)
 			{
 				if (picBox.Image == null)
 				{
@@ -94,7 +96,9 @@ namespace CS_TickTackToe
 				}
 
 				//You took your turn so now it is the computers turn
-				clsGame.bytCurrentPlayer = 2;
+				//clsGame.bytCurrentPlayer = 2;
+                //clsGame.setCurrentPlayer(clsGameplay.EPlayer.E_COMPUTER);
+                clsGame.Player = clsGameplay.EPlayer.E_COMPUTER;
 				sbStatus.Panels[0].Text = "Computer's Move";
 				clsGame.MoveComputer();
 				sbStatus.Panels[0].Text = "Your Move";
