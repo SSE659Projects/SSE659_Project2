@@ -116,7 +116,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[0, 1] = playerType;
             clsGame.bytCurrentPositions[0, 2] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -124,7 +124,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[0, 1] = 0;
             clsGame.bytCurrentPositions[0, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -132,7 +132,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[0, 1] = playerType;
             clsGame.bytCurrentPositions[0, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 0);
         }
@@ -151,7 +151,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[1, 2] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -159,7 +159,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = 0;
             clsGame.bytCurrentPositions[1, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -167,7 +167,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[1, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 0);
         }
@@ -186,7 +186,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[2, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -194,7 +194,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[2, 1] = 0;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -202,7 +202,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[2, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 0);
         }
@@ -221,7 +221,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 0] = playerType;
             clsGame.bytCurrentPositions[2, 0] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 0);
 
@@ -229,7 +229,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 0] = 0;
             clsGame.bytCurrentPositions[2, 0] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 0);
 
@@ -237,7 +237,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 0] = playerType;
             clsGame.bytCurrentPositions[2, 0] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 0);
         }
@@ -256,7 +256,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 1] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -264,7 +264,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = 0;
             clsGame.bytCurrentPositions[2, 1] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -272,7 +272,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 1] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 1);
         }
@@ -291,7 +291,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 2] = playerType;
             clsGame.bytCurrentPositions[2, 2] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -299,7 +299,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 2] = 0;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -307,7 +307,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 2] = playerType;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 2);
         }
@@ -326,7 +326,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 0] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 0);
 
@@ -334,7 +334,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = 0;
             clsGame.bytCurrentPositions[2, 0] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -342,7 +342,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 0] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 2);
         }
@@ -361,7 +361,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = 0;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 2);
             Assert.AreEqual(bytMoveArray[1], 2);
 
@@ -369,7 +369,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = 0;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 1);
             Assert.AreEqual(bytMoveArray[1], 1);
 
@@ -377,7 +377,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 0);
             Assert.AreEqual(bytMoveArray[1], 0);
         }
@@ -396,7 +396,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            bytMoveArray = clsGame.TwoInSequence(playerType);
+            bytMoveArray = clsGame.FindTwoInSequence(playerType);
             Assert.AreEqual(bytMoveArray[0], 10);
             Assert.AreEqual(bytMoveArray[1], 10);
         }
