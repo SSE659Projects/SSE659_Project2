@@ -41,7 +41,7 @@ namespace CS_TickTackToe
 			clsPicCol.Clear_Pictures();
 		}
 
-		public void SetPosition(byte bytPlayer, int intDim1, int intDim2)
+		public void SetBoardPosition(byte bytPlayer, int intDim1, int intDim2)
 		{
 			bytCurrentPositions[intDim1, intDim2] = bytPlayer;
 
@@ -123,7 +123,7 @@ namespace CS_TickTackToe
 
             if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
             {
-                SetPosition(2, pos1 - 1, pos2 - 1);
+                SetBoardPosition(2, pos1 - 1, pos2 - 1);
                 int i;
                 for (i = 0; i < clsPicCol.Count; i++)
                 {
@@ -143,7 +143,7 @@ namespace CS_TickTackToe
 
         public void ComputerMoveSequence(byte[] bytMoveArray)
         {
-            SetPosition(2, Convert.ToInt32(bytMoveArray[0]),
+            SetBoardPosition(2, Convert.ToInt32(bytMoveArray[0]),
                         Convert.ToInt32(bytMoveArray[1]));
             bytMoveArray[0]++;
             bytMoveArray[1]++;
