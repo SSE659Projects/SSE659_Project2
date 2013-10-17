@@ -49,7 +49,7 @@ namespace CS_TickTackToe
 			bytWin = CheckWin();
 		}
 
-		public void MoveComputer()
+		public void ComputerMoveAI()
 		{
 			if (bytDifficulty == 0)
 			{
@@ -82,7 +82,7 @@ namespace CS_TickTackToe
 					else
 					{
 						//Recursively try again
-						MoveComputer();
+						ComputerMoveAI();
 					}
 				}
 				catch (System.Exception e)
