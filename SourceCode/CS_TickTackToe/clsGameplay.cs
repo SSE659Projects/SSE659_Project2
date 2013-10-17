@@ -273,127 +273,156 @@ namespace CS_TickTackToe
 		//  | |x     | |      | |x
 		public byte[] FindTwoInSequence(byte bytPlayer)
 		{
-			byte[] bytMove = new byte[2];
+            byte[] bytMove = new byte[2];
 
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 2;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,1] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 1;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,0] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 0;
-					return bytMove;
-				}
-			}	
-
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == 0)
-				{
-					bytMove[0] = 2;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == 0)
-				{
-					bytMove[0] = 1;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[0,i] == 0)
-				{
-					bytMove[0] = 0;
-					bytMove[1] = i;
-					return bytMove;
-				}
-			}	
-
-			//Diagonally with negative slope
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[0,0] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			//Diagonally with positive slope
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[0,2] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-
-			bytMove[0] = 10;
-			bytMove[1] = 10;
-			return bytMove;
+            if (FoundHorizontalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundVerticalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalNegativeSlopeSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalPositiveSlopeSequence(bytMove, bytPlayer))
+                return bytMove;
+            else
+            {
+                bytMove[0] = 10;
+                bytMove[1] = 10;
+                return bytMove;
+            }
 		}
+
+        public bool FoundHorizontalSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 2;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 1;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 0] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 0;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FoundVerticalSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == 0)
+                {
+                    bytMoveArray[0] = 2;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == 0)
+                {
+                    bytMoveArray[0] = 1;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[0, i] == 0)
+                {
+                    bytMoveArray[0] = 0;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FoundDiagonalPositiveSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[2, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == bytPlayer &&
+                 bytCurrentPositions[0, 2] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+
+            else
+                return false;
+        }
+
+        public bool FoundDiagonalNegativeSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[0, 0] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else
+                return false;
+        }
 	}//End class
 }//End Namespace
