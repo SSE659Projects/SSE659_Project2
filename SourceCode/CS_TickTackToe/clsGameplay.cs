@@ -23,7 +23,7 @@ namespace CS_TickTackToe
 		public int intHumanScore = 0;
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
-		public byte bytWin = 0;
+		private EPlayer m_Winner = EPlayer.E_NOT_SET_OR_DEFINED;
 
         public enum EGameDifficulty
         {
@@ -34,10 +34,15 @@ namespace CS_TickTackToe
 
         private EGameDifficulty m_GameDifficulty = EGameDifficulty.E_EASY;
 
-		public PictureBox picO;
+		private PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
-		public byte[,] bytCurrentPositions = new byte[3,3];
+        public byte[,] bytCurrentPositions = new byte[3, 3];
+
+        public EPlayer GameWinner
+        {
+            get { return m_Winner; }
+        }
 
         public EPlayer Player
         {
@@ -60,19 +65,19 @@ namespace CS_TickTackToe
 			{
 				for (int ii = 0; ii <= 2; ii++)
 				{
-                    bytCurrentPositions[i, ii] = 0;		
+                    bytCurrentPositions[i, ii] = (byte)EPlayer.E_NOT_SET_OR_DEFINED;		
 				}				
 			}
 			//Reset the pictures
 			clsPicCol.Clear_Pictures();
 		}
 
-		public void SetPosition(byte bytPlayer, int intDim1, int intDim2)
+		public void SetPosition(EPlayer player, int intDim1, int intDim2)
 		{
-			bytCurrentPositions[intDim1, intDim2] = bytPlayer;
+            bytCurrentPositions[intDim1, intDim2] = (byte)player;
 
 			//Check for a win
-			bytWin = CheckWin();
+            m_Winner = CheckWin();
 		}
 
 		public void MoveComputer()
@@ -94,7 +99,7 @@ namespace CS_TickTackToe
 					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1, pos2);
+                        SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{
@@ -127,7 +132,7 @@ namespace CS_TickTackToe
 				byte[] bytMove = TwoInSequence(1);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
+                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
@@ -151,7 +156,7 @@ namespace CS_TickTackToe
 					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1, pos2);
+                        SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{
@@ -182,7 +187,7 @@ namespace CS_TickTackToe
 				byte[] bytMove2 = TwoInSequence(1);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove[0]),
+                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
@@ -196,7 +201,7 @@ namespace CS_TickTackToe
 				}
                 else if (bytMove2[0] != UNDEFINED_MOVE && bytMove2[1] != UNDEFINED_MOVE)
 				{
-					SetPosition(2, Convert.ToInt32(bytMove2[0]),
+                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove2[0]),
 						Convert.ToInt32(bytMove2[1]));
 					int i;
 					for (i = 0; i < clsPicCol.Count; i++)
@@ -220,7 +225,7 @@ namespace CS_TickTackToe
 					if (bytCurrentPositions[pos1, pos2] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(2, pos1, pos2);
+						SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
 						int i;
 						for (i = 0; i < clsPicCol.Count; i++)
 						{
@@ -242,89 +247,86 @@ namespace CS_TickTackToe
             m_Player = EPlayer.E_HUMAN;
 		}
 
-		//0 = no win
-		//1 = human won
-		//2 = comp one
-		public byte CheckWin()
+		public EPlayer CheckWin()
 		{
 #region Check for a win
 			//Check for a horizontal win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[i,0] == 1 &&
-					bytCurrentPositions[i,1] == 1 &&
-					bytCurrentPositions[i,2] == 1)
+                if (bytCurrentPositions[i, 0] == (byte)EPlayer.E_HUMAN &&
+                    bytCurrentPositions[i, 1] == (byte)EPlayer.E_HUMAN &&
+                    bytCurrentPositions[i, 2] == (byte)EPlayer.E_HUMAN)
 				{
 					//Human won
-					return 1;
+					return EPlayer.E_HUMAN;
 				}
 			}
 
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[i,0] == 2 &&
-					bytCurrentPositions[i,1] == 2 &&
-					bytCurrentPositions[i,2] == 2)
+                if (bytCurrentPositions[i, 0] == (byte)EPlayer.E_COMPUTER &&
+                    bytCurrentPositions[i, 1] == (byte)EPlayer.E_COMPUTER &&
+                    bytCurrentPositions[i, 2] == (byte)EPlayer.E_COMPUTER)
 				{
 					//Computer won
-					return 2;
+					return EPlayer.E_COMPUTER;
 				}
 			}
 
 			//Check for a vertical win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[0,i] == 1 &&
-					bytCurrentPositions[1,i] == 1 &&
-					bytCurrentPositions[2,i] == 1)
+                if (bytCurrentPositions[0, i] == (byte)EPlayer.E_HUMAN &&
+                    bytCurrentPositions[1, i] == (byte)EPlayer.E_HUMAN &&
+                    bytCurrentPositions[2, i] == (byte)EPlayer.E_HUMAN)
 				{
 					//Human won
-					return 1;
+                    return EPlayer.E_HUMAN;
 				}
 			}
 
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[0,i] == 2 &&
-					bytCurrentPositions[1,i] == 2 &&
-					bytCurrentPositions[2,i] == 2)
+                if (bytCurrentPositions[0, i] == (byte)EPlayer.E_COMPUTER &&
+                    bytCurrentPositions[1, i] == (byte)EPlayer.E_COMPUTER &&
+                    bytCurrentPositions[2, i] == (byte)EPlayer.E_COMPUTER)
 				{
 					//Computer won
-					return 2;
+                    return EPlayer.E_COMPUTER;
 				}
 			}
 
-			//Check for diagnol win
-			if (bytCurrentPositions[0,0] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,2] == 1)
+			//Check for diagonal win
+            if (bytCurrentPositions[0, 0] == (byte)EPlayer.E_HUMAN &&
+                bytCurrentPositions[1, 1] == (byte)EPlayer.E_HUMAN &&
+                bytCurrentPositions[2, 2] == (byte)EPlayer.E_HUMAN)
 			{
 				//Human won
-				return 1;
+                return EPlayer.E_HUMAN;
 			}
 
-			if (bytCurrentPositions[0,2] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,0] == 1)
+            if (bytCurrentPositions[0, 2] == (byte)EPlayer.E_HUMAN &&
+                bytCurrentPositions[1, 1] == (byte)EPlayer.E_HUMAN &&
+                bytCurrentPositions[2, 0] == (byte)EPlayer.E_HUMAN)
 			{
 				//Human won
-				return 1;
+                return EPlayer.E_HUMAN;
 			}
 
-			if (bytCurrentPositions[0,0] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,2] == 2)
+            if (bytCurrentPositions[0, 0] == (byte)EPlayer.E_COMPUTER &&
+                bytCurrentPositions[1, 1] == (byte)EPlayer.E_COMPUTER &&
+                bytCurrentPositions[2, 2] == (byte)EPlayer.E_COMPUTER)
 			{
 				//Computer won
-				return 2;
+				return EPlayer.E_COMPUTER;
 			}
 
-			if (bytCurrentPositions[0,2] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,0] == 2)
+            if (bytCurrentPositions[0, 2] == (byte)EPlayer.E_COMPUTER &&
+                bytCurrentPositions[1, 1] == (byte)EPlayer.E_COMPUTER &&
+                bytCurrentPositions[2, 0] == (byte)EPlayer.E_COMPUTER)
 			{
 				//Computer won
-				return 2;
+                return EPlayer.E_COMPUTER;
 			}
 			return 0;
 #endregion
@@ -342,7 +344,7 @@ namespace CS_TickTackToe
 			{
 				for (int ii = 0; ii <= 2; ii++)
 				{
-					if (bytCurrentPositions[i, ii] == 0)
+					if (bytCurrentPositions[i, ii] == (byte)EPlayer.E_NOT_SET_OR_DEFINED)
 					{
 						return false;
 					}
@@ -353,7 +355,7 @@ namespace CS_TickTackToe
 
 		//Checks if the current player has
 		//two in a sequence, if so it
-		//returns the corrodinates needed for
+		//returns the coordinates needed for
 		//the player to get three in a row
 		//or the opponent to block.
 
@@ -374,7 +376,7 @@ namespace CS_TickTackToe
 		// x| |      | |     x| |
 
 		//The x's can be in either a positively (/)
-		//or negitively sloped like (\)
+		//or negatively sloped like (\)
 		// x| |     x| |      | |
 		//  | |      |x|      |x|
 		//  | |x     | |      | |x
