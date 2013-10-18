@@ -131,20 +131,8 @@ namespace CS_TickTackToe
 					//If no defensive move then
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom:
-					int positionX = rnd.Next(0, 3);
-					int positionY = rnd.Next(0, 3);
-
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom;
-					}
+                    while (!RandomComputerMove(rnd))
+                    { }
 				}
 #endregion
 			}
@@ -171,25 +159,27 @@ namespace CS_TickTackToe
 					//If no defensive or offensive move so
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom2:
-                    int positionX = rnd.Next(0, 3);
-                    int positionY = rnd.Next(0, 3);
-
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom2;
-					}
+                    while(!RandomComputerMove(rnd))
+					{}
 				}
 #endregion
 			}
             m_Player = EPlayer.E_HUMAN;
 		}
+
+        private bool RandomComputerMove(System.Random rnd)
+        {
+            int positionX = rnd.Next(0, 3);
+            int positionY = rnd.Next(0, 3);
+
+            if (bytCurrentPositions[positionX, positionY] == 0)
+            {
+                //No one is using it so good to go
+                SetComputerPosition(positionX, positionY);
+                return true;
+            }
+            return false;
+        }
 
         private void SetComputerPosition(int positionX, int positionY)
         {
