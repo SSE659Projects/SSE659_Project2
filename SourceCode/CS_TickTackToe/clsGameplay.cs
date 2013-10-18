@@ -85,34 +85,14 @@ namespace CS_TickTackToe
             if (m_GameDifficulty == EGameDifficulty.E_EASY)
 			{
 #region Easy
-				//Wierd ai, but just pic
-				//two random numbers between
-				//0 and 2 and check if the spot
-				//is taken, if not take it
-				try
-				{
-					System.Random rnd = new System.Random();
-                    int positionX = rnd.Next(0, 3);
-                    int positionY = rnd.Next(0, 3);
-					System.GC.Collect();
-
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-
-					}
-					else
-					{
-						//Recursively try again
-						MoveComputer();
-					}
-				}
-				catch (System.Exception e)
-				{
-					clsPicCol.sbStatus.Panels[1].Text = e.Message;
-					clsPicCol.sbStatus.Panels[1].ToolTipText = e.Message;
-				}
+			    //Wierd ai, but just pic
+			    //two random numbers between
+			    //0 and 2 and check if the spot
+			    //is taken, if not take it
+			
+				System.Random rnd = new System.Random();
+                while (!RandomComputerMove(rnd))
+                { }
 #endregion
 			}
             else if (m_GameDifficulty == EGameDifficulty.E_MEDIUM)
