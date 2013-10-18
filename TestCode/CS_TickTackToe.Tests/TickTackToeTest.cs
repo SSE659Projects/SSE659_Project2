@@ -25,7 +25,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[sidePosition, 1] = playerType;
             clsGame.bytCurrentPositions[sidePosition, 2] = playerType;
 
-            clsGameplay.EPlayer player = clsGame.CheckWin();
+            clsGameplay.EPlayer player = clsGame.CheckForWinner();
 		    return (byte)player;
 	    }
 
@@ -45,7 +45,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, sidePosition] = playerType;
             clsGame.bytCurrentPositions[2, sidePosition] = playerType;
 
-            clsGameplay.EPlayer player = clsGame.CheckWin();
+            clsGameplay.EPlayer player = clsGame.CheckForWinner();
             return (byte)player;
 	    }
 
@@ -61,7 +61,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 2] = playerType;
 
-            clsGameplay.EPlayer player = clsGame.CheckWin();
+            clsGameplay.EPlayer player = clsGame.CheckForWinner();
             return (byte)player;
 	    }
 
@@ -77,7 +77,7 @@ namespace CS_TickTackToe.Tests
             clsGame.bytCurrentPositions[1, 1] = playerType;
             clsGame.bytCurrentPositions[2, 0] = playerType;
 
-            clsGameplay.EPlayer player = clsGame.CheckWin();
+            clsGameplay.EPlayer player = clsGame.CheckForWinner();
             return (byte)player;
 	    }
 

@@ -77,7 +77,7 @@ namespace CS_TickTackToe
             bytCurrentPositions[intDim1, intDim2] = (byte)player;
 
 			//Check for a win
-            m_Winner = CheckWin();
+            m_Winner = CheckForWinner();
 		}
 
 		public void ComputerMoveAI()
@@ -186,7 +186,7 @@ namespace CS_TickTackToe
             }
         }
 
-		public EPlayer CheckWin()
+		public EPlayer CheckForWinner()
 		{
             //Check for a horizontal win
             for (int i = 0; i <= 2; i++)
