@@ -433,7 +433,7 @@ namespace CS_TickTackToe
 				mnuChkMedium.Checked = false;
 				mnuChkHard.Checked = false;
 				mnuChkEasy.Checked = true;
-				clsGame.bytDifficulty = 0;
+				clsGame.bytDifficulty = clsGameplay.Easy;
 				sbpDifficulty.Text = "Easy";
 			}
 			else if (sender == mnuChkMedium)
@@ -441,7 +441,7 @@ namespace CS_TickTackToe
 				mnuChkEasy.Checked = false;
 				mnuChkHard.Checked = false;
 				mnuChkMedium.Checked = true;
-				clsGame.bytDifficulty = 1;
+				clsGame.bytDifficulty = clsGameplay.Medium;
 				sbpDifficulty.Text = "Medium";
 			}
 			else if (sender == mnuChkHard)
@@ -449,7 +449,7 @@ namespace CS_TickTackToe
 				mnuChkEasy.Checked = false;
 				mnuChkMedium.Checked = false;
 				mnuChkHard.Checked = true;
-				clsGame.bytDifficulty = 2;
+				clsGame.bytDifficulty = clsGameplay.Hard;
 				sbpDifficulty.Text = "Hard";
 			}
 		}

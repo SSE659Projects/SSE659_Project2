@@ -9,8 +9,10 @@ namespace CS_TickTackToe
 	
 	public class clsGameplay
 	{
-		//1 = human 2 = comp
-		public byte bytCurrentPlayer = 1;
+        public const int HumansTurn = 1;
+        public const int ComputersTurn = 2;
+		//default to human's turn
+		public byte bytCurrentPlayer = HumansTurn;
 		public int intHumanScore = 0;
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
@@ -224,7 +226,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			bytCurrentPlayer = 1;
+			bytCurrentPlayer = HumansTurn;
 		}
 
 		//0 = no win
