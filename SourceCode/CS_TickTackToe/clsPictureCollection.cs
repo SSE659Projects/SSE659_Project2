@@ -71,27 +71,7 @@ namespace CS_TickTackToe
 
 				//Check the status of the game winner/tie/still going
 				//this is done twice to make it as optimal as possible!
-                if (clsGame.GameWinner == clsGameplay.EPlayer.E_HUMAN)
-				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You won!");
-					clsGame.NewGame();
-				}
-                else if (clsGame.GameWinner == clsGameplay.EPlayer.E_COMPUTER)
-				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You lost.");
-					clsGame.NewGame();
-				}
-				else if (clsGame.CheckTie() == true)
-				{
-					MessageBox.Show("The game resulted in a tie.");
-					clsGame.NewGame();
-				}
+                CheckGameStatus();
 
 				//You took your turn so now it is the computers turn
                 clsGame.Player = clsGameplay.EPlayer.E_COMPUTER;
@@ -101,29 +81,34 @@ namespace CS_TickTackToe
 
 				//Check the status of the game winner/tie/still going
 				//this is done twice to make it as optimal as possible!
-                if (clsGame.GameWinner == clsGameplay.EPlayer.E_HUMAN)
-				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You won!");
-					clsGame.NewGame();
-				}
-                else if (clsGame.GameWinner == clsGameplay.EPlayer.E_COMPUTER)
-				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You lost.");
-					clsGame.NewGame();
-				}
-				else if (clsGame.CheckTie() == true)
-				{
-					MessageBox.Show("The game resulted in a tie.");
-					clsGame.NewGame();
-				}
+                CheckGameStatus();
 			}
 		}
+
+        private void CheckGameStatus()
+        {
+            if (clsGame.GameWinner == clsGameplay.EPlayer.E_HUMAN)
+            {
+                clsGame.intHumanScore++;
+                sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
+                    + " Computer: " + clsGame.intCompScore.ToString();
+                MessageBox.Show("You won!");
+                clsGame.NewGame();
+            }
+            else if (clsGame.GameWinner == clsGameplay.EPlayer.E_COMPUTER)
+            {
+                clsGame.intCompScore++;
+                sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
+                    + " Computer: " + clsGame.intCompScore.ToString();
+                MessageBox.Show("You lost.");
+                clsGame.NewGame();
+            }
+            else if (clsGame.CheckTie() == true)
+            {
+                MessageBox.Show("The game resulted in a tie.");
+                clsGame.NewGame();
+            }
+        }
 
 		public void Clear_Pictures()
 		{
