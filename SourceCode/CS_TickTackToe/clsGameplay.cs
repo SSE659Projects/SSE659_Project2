@@ -53,7 +53,7 @@ namespace CS_TickTackToe
 			bytCurrentPositions[intDim1, intDim2] = bytPlayer;
 
 			//Check for a win
-			bytWin = CheckWin();
+			bytWin = CheckForWinner();
 		}
 
 		public void MoveComputer()
@@ -232,7 +232,7 @@ namespace CS_TickTackToe
         public const int Tie = 0;
         public const int HumanWins = 1;
         public const int ComputerWins = 2;
-		public byte CheckWin()
+		public byte CheckForWinner()
 		{
 #region Check for a win
 			//Check for a horizontal win
