@@ -28,6 +28,9 @@ namespace CS_TickTackToe
 		public PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
+        public const int Blank = 0;
+        public const int X_Human = 1;
+        public const int O_Computer = 2;
 		public byte[,] bytCurrentPositions = new byte[3,3];
 
 		public clsGameplay(PictureBox picOHolder)
@@ -41,7 +44,7 @@ namespace CS_TickTackToe
 			{
 				for (int ii = 0; ii <= 2; ii++)
 				{
-					bytCurrentPositions[i, ii] = 0;			
+					bytCurrentPositions[i, ii] = Blank;			
 				}				
 			}
 			//Reset the pictures
@@ -72,7 +75,7 @@ namespace CS_TickTackToe
 					int pos2 = rnd.Next(1, 4);
 					System.GC.Collect();
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == Blank)
 					{
 						//No one is using it so good to go
 						SetPosition(2, pos1 - 1, pos2 - 1);
@@ -131,7 +134,7 @@ namespace CS_TickTackToe
 					int pos1 = rnd.Next(1, 4);
 					int pos2 = rnd.Next(1, 4);
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == Blank)
 					{
 						//No one is using it so good to go
 						SetPosition(2, pos1 - 1, pos2 - 1);
@@ -204,7 +207,7 @@ namespace CS_TickTackToe
 					int pos1 = rnd.Next(1, 4);
 					int pos2 = rnd.Next(1, 4);
 
-					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == 0)
+					if (bytCurrentPositions[pos1 - 1, pos2 - 1] == Blank)
 					{
 						//No one is using it so good to go
 						SetPosition(2, pos1 - 1, pos2 - 1);
@@ -238,9 +241,9 @@ namespace CS_TickTackToe
 			//Check for a horizontal win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[i,0] == 1 &&
-					bytCurrentPositions[i,1] == 1 &&
-					bytCurrentPositions[i,2] == 1)
+				if (bytCurrentPositions[i,0] == X_Human &&
+					bytCurrentPositions[i,1] == X_Human &&
+					bytCurrentPositions[i,2] == X_Human)
 				{
 					return HumanWins;
 				}
@@ -248,9 +251,9 @@ namespace CS_TickTackToe
 
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[i,0] == 2 &&
-					bytCurrentPositions[i,1] == 2 &&
-					bytCurrentPositions[i,2] == 2)
+				if (bytCurrentPositions[i,0] == O_Computer &&
+					bytCurrentPositions[i,1] == O_Computer &&
+					bytCurrentPositions[i,2] == O_Computer)
 				{
 					return ComputerWins;
 				}
@@ -259,9 +262,9 @@ namespace CS_TickTackToe
 			//Check for a vertical win
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[0,i] == 1 &&
-					bytCurrentPositions[1,i] == 1 &&
-					bytCurrentPositions[2,i] == 1)
+				if (bytCurrentPositions[0,i] == X_Human &&
+					bytCurrentPositions[1,i] == X_Human &&
+					bytCurrentPositions[2,i] == X_Human)
 				{
 					return HumanWins;
 				}
@@ -269,39 +272,39 @@ namespace CS_TickTackToe
 
 			for (int i = 0; i <= 2; i++)
 			{
-				if (bytCurrentPositions[0,i] == 2 &&
-					bytCurrentPositions[1,i] == 2 &&
-					bytCurrentPositions[2,i] == 2)
+				if (bytCurrentPositions[0,i] == O_Computer &&
+					bytCurrentPositions[1,i] == O_Computer &&
+					bytCurrentPositions[2,i] == O_Computer)
 				{
 					return ComputerWins;
 				}
 			}
 
 			//Check for diagnol win
-			if (bytCurrentPositions[0,0] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,2] == 1)
+			if (bytCurrentPositions[0,0] == X_Human &&
+				bytCurrentPositions[1,1] == X_Human &&
+				bytCurrentPositions[2,2] == X_Human)
 			{
 				return HumanWins;
 			}
 
-			if (bytCurrentPositions[0,2] == 1 &&
-				bytCurrentPositions[1,1] == 1 &&
-				bytCurrentPositions[2,0] == 1)
+			if (bytCurrentPositions[0,2] == X_Human &&
+				bytCurrentPositions[1,1] == X_Human &&
+				bytCurrentPositions[2,0] == X_Human)
 			{
 				return HumanWins;
 			}
 
-			if (bytCurrentPositions[0,0] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,2] == 2)
+			if (bytCurrentPositions[0,0] == O_Computer &&
+				bytCurrentPositions[1,1] == O_Computer &&
+				bytCurrentPositions[2,2] == O_Computer)
 			{
 				return ComputerWins;
 			}
 
-			if (bytCurrentPositions[0,2] == 2 &&
-				bytCurrentPositions[1,1] == 2 &&
-				bytCurrentPositions[2,0] == 2)
+			if (bytCurrentPositions[0,2] == O_Computer &&
+				bytCurrentPositions[1,1] == O_Computer &&
+				bytCurrentPositions[2,0] == O_Computer)
 			{
 				return ComputerWins;
 			}
@@ -321,7 +324,7 @@ namespace CS_TickTackToe
 			{
 				for (int ii = 0; ii <= 2; ii++)
 				{
-					if (bytCurrentPositions[i, ii] == 0)
+					if (bytCurrentPositions[i, ii] == Blank)
 					{
 						return false;
 					}
@@ -366,7 +369,7 @@ namespace CS_TickTackToe
 			{
 				if (bytCurrentPositions[i,0] == bytPlayer &&
 					bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == 0)
+					bytCurrentPositions[i,2] == Blank)
 				{
 					bytMove[0] = i;
 					bytMove[1] = 2;
@@ -375,7 +378,7 @@ namespace CS_TickTackToe
 
 				if (bytCurrentPositions[i,0] == bytPlayer &&
 					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,1] == 0)
+					bytCurrentPositions[i,1] == Blank)
 				{
 					bytMove[0] = i;
 					bytMove[1] = 1;
@@ -384,7 +387,7 @@ namespace CS_TickTackToe
 
 				if (bytCurrentPositions[i,1] == bytPlayer &&
 					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,0] == 0)
+					bytCurrentPositions[i,0] == Blank)
 				{
 					bytMove[0] = i;
 					bytMove[1] = 0;
@@ -398,7 +401,7 @@ namespace CS_TickTackToe
 			{
 				if (bytCurrentPositions[0,i] == bytPlayer &&
 					bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == 0)
+					bytCurrentPositions[2,i] == Blank)
 				{
 					bytMove[0] = 2;
 					bytMove[1] = i;
@@ -407,7 +410,7 @@ namespace CS_TickTackToe
 
 				if (bytCurrentPositions[0,i] == bytPlayer &&
 					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == 0)
+					bytCurrentPositions[1,i] == Blank)
 				{
 					bytMove[0] = 1;
 					bytMove[1] = i;
@@ -416,7 +419,7 @@ namespace CS_TickTackToe
 
 				if (bytCurrentPositions[1,i] == bytPlayer &&
 					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[0,i] == 0)
+					bytCurrentPositions[0,i] == Blank)
 				{
 					bytMove[0] = 0;
 					bytMove[1] = i;
@@ -429,7 +432,7 @@ namespace CS_TickTackToe
 			//Diagonally with negative slope
 			if (bytCurrentPositions[0,0] == bytPlayer &&
 				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == 0)
+				bytCurrentPositions[2,2] == Blank)
 			{
 				bytMove[0] = 2;
 				bytMove[1] = 2;
@@ -438,7 +441,7 @@ namespace CS_TickTackToe
 
 			if (bytCurrentPositions[0,0] == bytPlayer &&
 				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
+				bytCurrentPositions[1,1] == Blank)
 			{
 				bytMove[0] = 1;
 				bytMove[1] = 1;
@@ -447,7 +450,7 @@ namespace CS_TickTackToe
 
 			if (bytCurrentPositions[1,1] == bytPlayer &&
 				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[0,0] == 0)
+				bytCurrentPositions[0,0] == Blank)
 			{
 				bytMove[0] = 0;
 				bytMove[1] = 0;
@@ -457,7 +460,7 @@ namespace CS_TickTackToe
 			//Diagonally with positive slope
 			if (bytCurrentPositions[0,2] == bytPlayer &&
 				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == 0)
+				bytCurrentPositions[2,0] == Blank)
 			{
 				bytMove[0] = 2;
 				bytMove[1] = 0;
@@ -466,7 +469,7 @@ namespace CS_TickTackToe
 
 			if (bytCurrentPositions[0,2] == bytPlayer &&
 				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
+				bytCurrentPositions[1,1] == Blank)
 			{
 				bytMove[0] = 1;
 				bytMove[1] = 1;
@@ -475,7 +478,7 @@ namespace CS_TickTackToe
 
 			if (bytCurrentPositions[1,1] == bytPlayer &&
 				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[0,2] == 0)
+				bytCurrentPositions[0,2] == Blank)
 			{
 				bytMove[0] = 0;
 				bytMove[1] = 2;
