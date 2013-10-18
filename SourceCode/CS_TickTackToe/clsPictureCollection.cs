@@ -71,7 +71,7 @@ namespace CS_TickTackToe
 
 				//Check the status of the game winner/tie/still going
 				//this is done twice to make it as optimal as possible!
-				if (clsGame.bytWin == 1)
+				if (clsGame.bytWin == clsGameplay.HumanWins)
 				{
 					clsGame.intHumanScore++;
 					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
@@ -79,7 +79,7 @@ namespace CS_TickTackToe
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
-				else if (clsGame.bytWin == 2)
+				else if (clsGame.bytWin == clsGameplay.ComputerWins)
 				{
 					clsGame.intCompScore++;
 					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
@@ -101,7 +101,7 @@ namespace CS_TickTackToe
 
 				//Check the status of the game winner/tie/still going
 				//this is done twice to make it as optimal as possible!
-				if (clsGame.bytWin == 1)
+				if (clsGame.bytWin == clsGameplay.HumanWins)
 				{
 					clsGame.intHumanScore++;
 					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
@@ -109,7 +109,7 @@ namespace CS_TickTackToe
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
-				else if (clsGame.bytWin == 2)
+				else if (clsGame.bytWin == clsGameplay.HumanWins)
 				{
 					clsGame.intCompScore++;
 					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()

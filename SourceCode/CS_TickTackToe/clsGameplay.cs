@@ -229,9 +229,9 @@ namespace CS_TickTackToe
 			bytCurrentPlayer = HumansTurn;
 		}
 
-		//0 = no win
-		//1 = human won
-		//2 = comp one
+        public const int Tie = 0;
+        public const int HumanWins = 1;
+        public const int ComputerWins = 2;
 		public byte CheckWin()
 		{
 #region Check for a win
@@ -242,8 +242,7 @@ namespace CS_TickTackToe
 					bytCurrentPositions[i,1] == 1 &&
 					bytCurrentPositions[i,2] == 1)
 				{
-					//Human won
-					return 1;
+					return HumanWins;
 				}
 			}
 
@@ -253,8 +252,7 @@ namespace CS_TickTackToe
 					bytCurrentPositions[i,1] == 2 &&
 					bytCurrentPositions[i,2] == 2)
 				{
-					//Computer won
-					return 2;
+					return ComputerWins;
 				}
 			}
 
@@ -265,8 +263,7 @@ namespace CS_TickTackToe
 					bytCurrentPositions[1,i] == 1 &&
 					bytCurrentPositions[2,i] == 1)
 				{
-					//Human won
-					return 1;
+					return HumanWins;
 				}
 			}
 
@@ -276,8 +273,7 @@ namespace CS_TickTackToe
 					bytCurrentPositions[1,i] == 2 &&
 					bytCurrentPositions[2,i] == 2)
 				{
-					//Computer won
-					return 2;
+					return ComputerWins;
 				}
 			}
 
@@ -286,34 +282,30 @@ namespace CS_TickTackToe
 				bytCurrentPositions[1,1] == 1 &&
 				bytCurrentPositions[2,2] == 1)
 			{
-				//Human won
-				return 1;
+				return HumanWins;
 			}
 
 			if (bytCurrentPositions[0,2] == 1 &&
 				bytCurrentPositions[1,1] == 1 &&
 				bytCurrentPositions[2,0] == 1)
 			{
-				//Human won
-				return 1;
+				return HumanWins;
 			}
 
 			if (bytCurrentPositions[0,0] == 2 &&
 				bytCurrentPositions[1,1] == 2 &&
 				bytCurrentPositions[2,2] == 2)
 			{
-				//Computer won
-				return 2;
+				return ComputerWins;
 			}
 
 			if (bytCurrentPositions[0,2] == 2 &&
 				bytCurrentPositions[1,1] == 2 &&
 				bytCurrentPositions[2,0] == 2)
 			{
-				//Computer won
-				return 2;
+				return ComputerWins;
 			}
-			return 0;
+			return Tie;
 #endregion
 		}
 
