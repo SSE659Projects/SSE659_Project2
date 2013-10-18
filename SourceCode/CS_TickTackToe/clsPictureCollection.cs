@@ -109,7 +109,7 @@ namespace CS_TickTackToe
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
-				else if (clsGame.bytWin == clsGameplay.HumanWins)
+				else if (clsGame.bytWin == clsGameplay.ComputerWins)
 				{
 					clsGame.intCompScore++;
 					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
