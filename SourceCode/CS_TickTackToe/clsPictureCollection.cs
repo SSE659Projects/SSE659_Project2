@@ -50,6 +50,32 @@ namespace CS_TickTackToe
 				this.List.RemoveAt(this.Count -1);
 			}
 		}
+        public void CheckGameStatus()
+        {
+            //Check the status of the game winner/tie/still going
+            //this is done twice to make it as optimal as possible!
+            if (clsGame.bytWin == clsGameplay.HumanWins)
+            {
+                clsGame.intHumanScore++;
+                sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
+                    + " Computer: " + clsGame.intCompScore.ToString();
+                MessageBox.Show("You won!");
+                clsGame.NewGame();
+            }
+            else if (clsGame.bytWin == clsGameplay.ComputerWins)
+            {
+                clsGame.intCompScore++;
+                sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
+                    + " Computer: " + clsGame.intCompScore.ToString();
+                MessageBox.Show("You lost.");
+                clsGame.NewGame();
+            }
+            else if (clsGame.CheckTie() == true)
+            {
+                MessageBox.Show("The game resulted in a tie.");
+                clsGame.NewGame();
+            }
+        }
 
 		public void Picture_Click(Object sender, System.EventArgs e)
 		{
@@ -69,29 +95,7 @@ namespace CS_TickTackToe
 					return;
 				}
 
-				//Check the status of the game winner/tie/still going
-				//this is done twice to make it as optimal as possible!
-				if (clsGame.bytWin == clsGameplay.HumanWins)
-				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You won!");
-					clsGame.NewGame();
-				}
-				else if (clsGame.bytWin == clsGameplay.ComputerWins)
-				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You lost.");
-					clsGame.NewGame();
-				}
-				else if (clsGame.CheckTie() == true)
-				{
-					MessageBox.Show("The game resulted in a tie.");
-					clsGame.NewGame();
-				}
+                CheckGameStatus();
 
 				//You took your turn so now it is the computers turn
 				clsGame.bytCurrentPlayer = clsGameplay.ComputersTurn;
@@ -99,29 +103,7 @@ namespace CS_TickTackToe
 				clsGame.MoveComputer();
 				sbStatus.Panels[0].Text = "Your Move";
 
-				//Check the status of the game winner/tie/still going
-				//this is done twice to make it as optimal as possible!
-				if (clsGame.bytWin == clsGameplay.HumanWins)
-				{
-					clsGame.intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You won!");
-					clsGame.NewGame();
-				}
-				else if (clsGame.bytWin == clsGameplay.ComputerWins)
-				{
-					clsGame.intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-						+ " Computer: " + clsGame.intCompScore.ToString();
-					MessageBox.Show("You lost.");
-					clsGame.NewGame();
-				}
-				else if (clsGame.CheckTie() == true)
-				{
-					MessageBox.Show("The game resulted in a tie.");
-					clsGame.NewGame();
-				}
+                CheckGameStatus();
 			}
 		}
 
