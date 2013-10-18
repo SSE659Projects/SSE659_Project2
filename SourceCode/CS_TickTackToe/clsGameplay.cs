@@ -15,8 +15,13 @@ namespace CS_TickTackToe
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
 		public byte bytWin = 0;
-		//0 = easy, 1 = medium, 2 = hard
-		public byte bytDifficulty = 0;
+		
+        public const int Easy = 0;
+        public const int Medium = 1;
+        public const int Hard = 2;
+        //default to Easy
+        public byte bytDifficulty = Easy;
+
 
 		public PictureBox picO;
 		//Jagged array that corresponds to the pictures
@@ -51,7 +56,7 @@ namespace CS_TickTackToe
 
 		public void MoveComputer()
 		{
-			if (bytDifficulty == 0)
+			if (bytDifficulty == Easy)
 			{
 #region Easy
 				//Wierd ai, but just pic
@@ -92,7 +97,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			else if (bytDifficulty == 1)
+			else if (bytDifficulty == Medium)
 			{
 #region Medium
 				//A defensive algorithm
@@ -146,7 +151,7 @@ namespace CS_TickTackToe
 				}
 #endregion
 			}
-			else if (bytDifficulty == 2)
+			else if (bytDifficulty == Hard)
 			{
 #region Hard
 				//This algorithm looks for an offensive
