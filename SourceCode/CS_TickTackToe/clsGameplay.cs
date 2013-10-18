@@ -72,7 +72,7 @@ namespace CS_TickTackToe
 			clsPicCol.Clear_Pictures();
 		}
 
-		public void SetPosition(EPlayer player, int intDim1, int intDim2)
+		public void SetBoardPosition(EPlayer player, int intDim1, int intDim2)
 		{
             bytCurrentPositions[intDim1, intDim2] = (byte)player;
 
@@ -84,7 +84,6 @@ namespace CS_TickTackToe
 		{
             if (m_GameDifficulty == EGameDifficulty.E_EASY)
 			{
-#region Easy
 				//Wierd ai, but just pic
 				//two random numbers between
 				//0 and 2 and check if the spot
@@ -92,36 +91,22 @@ namespace CS_TickTackToe
 				try
 				{
 					System.Random rnd = new System.Random();
-                    int positionX = rnd.Next(0, 3);
-                    int positionY = rnd.Next(0, 3);
 					System.GC.Collect();
 
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-
-					}
-					else
-					{
-						//Recursively try again
-						ComputerMoveAI();
-					}
+                    RandomComputerMove(rnd);
 				}
 				catch (System.Exception e)
 				{
 					clsPicCol.sbStatus.Panels[1].Text = e.Message;
 					clsPicCol.sbStatus.Panels[1].ToolTipText = e.Message;
 				}
-#endregion
 			}
             else if (m_GameDifficulty == EGameDifficulty.E_MEDIUM)
 			{
-#region Medium
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
-                byte[] bytMove = TwoInSequence((byte)EPlayer.E_HUMAN);
+                byte[] bytMove = FindTwoInSequence((byte)EPlayer.E_HUMAN);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
                     SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
@@ -131,33 +116,18 @@ namespace CS_TickTackToe
 					//If no defensive move then
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom:
-					int positionX = rnd.Next(0, 3);
-					int positionY = rnd.Next(0, 3);
-
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom;
-					}
+                    RandomComputerMove(rnd);
 				}
-#endregion
 			}
             else if (m_GameDifficulty == EGameDifficulty.E_HARD)
 			{
-#region Hard
 				//This algorithm looks for an offensive
 				//move to make, if there is no offensive
 				//move to make it makes a defensive move
 				//if there is no offensive move and
 				//no defensive more it makes a random move
-				byte[] bytMove = TwoInSequence((byte)EPlayer.E_COMPUTER);
-                byte[] bytMove2 = TwoInSequence((byte)EPlayer.E_HUMAN);
+				byte[] bytMove = FindTwoInSequence((byte)EPlayer.E_COMPUTER);
+                byte[] bytMove2 = FindTwoInSequence((byte)EPlayer.E_HUMAN);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
                     SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
@@ -171,29 +141,40 @@ namespace CS_TickTackToe
 					//If no defensive or offensive move so
 					//go random again
 					System.Random rnd = new System.Random();
-				RetryRandom2:
-                    int positionX = rnd.Next(0, 3);
-                    int positionY = rnd.Next(0, 3);
-
-                    if (bytCurrentPositions[positionX, positionY] == 0)
-					{
-						//No one is using it so good to go
-                        SetComputerPosition(positionX, positionY);
-					}
-					else
-					{
-						//Retry that random number generation
-						goto RetryRandom2;
-					}
+					RandomComputerMove(rnd);
 				}
-#endregion
 			}
             m_Player = EPlayer.E_HUMAN;
 		}
+		
+		public void RandomComputerMove(Random randomNumber)
+        {
+            int positionX = randomNumber.Next(0, 3);
+            int positionY = randomNumber.Next(0, 3);
+
+            if (bytCurrentPositions[positionX, positionY] == 0)
+            {
+                SetBoardPosition(EPlayer.E_COMPUTER, positionX, positionY);
+                int i;
+                for (i = 0; i < clsPicCol.Count; i++)
+                {
+                    if (clsPicCol[i].Name.Equals("pic" + positionX.ToString()
+                        + positionY.ToString()))
+                    {
+                        clsPicCol[i].Image = picO.Image;
+                    }
+                }
+            }
+            else
+            {
+                //Retry random number generation
+                RandomComputerMove(randomNumber);
+            }
+        }
 
         private void SetComputerPosition(int positionX, int positionY)
         {
-            SetPosition(EPlayer.E_COMPUTER, positionX, positionY);
+            SetBoardPosition(EPlayer.E_COMPUTER, positionX, positionY);
             int i;
             for (i = 0; i < clsPicCol.Count; i++)
             {
@@ -207,87 +188,63 @@ namespace CS_TickTackToe
 
 		public EPlayer CheckWin()
 		{
-#region Check for a win
-			//Check for a horizontal win
-			for (int i = 0; i <= 2; i++)
-			{
-                if (bytCurrentPositions[i, 0] == (byte)EPlayer.E_HUMAN &&
-                    bytCurrentPositions[i, 1] == (byte)EPlayer.E_HUMAN &&
-                    bytCurrentPositions[i, 2] == (byte)EPlayer.E_HUMAN)
-				{
-					//Human won
-					return EPlayer.E_HUMAN;
-				}
-			}
+            //Check for a horizontal win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[i, 0] == ii &&
+                        bytCurrentPositions[i, 1] == ii &&
+                        bytCurrentPositions[i, 2] == ii)
+                    {
+                        return (EPlayer)ii;
+                    }
+                }
+            }
 
-			for (int i = 0; i <= 2; i++)
-			{
-                if (bytCurrentPositions[i, 0] == (byte)EPlayer.E_COMPUTER &&
-                    bytCurrentPositions[i, 1] == (byte)EPlayer.E_COMPUTER &&
-                    bytCurrentPositions[i, 2] == (byte)EPlayer.E_COMPUTER)
-				{
-					//Computer won
-					return EPlayer.E_COMPUTER;
-				}
-			}
+            //Check for a vertical win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, i] == ii &&
+                        bytCurrentPositions[1, i] == ii &&
+                        bytCurrentPositions[2, i] == ii)
+                    {
+                        return (EPlayer)ii;
+                    }
+                }
+            }
 
-			//Check for a vertical win
-			for (int i = 0; i <= 2; i++)
-			{
-                if (bytCurrentPositions[0, i] == (byte)EPlayer.E_HUMAN &&
-                    bytCurrentPositions[1, i] == (byte)EPlayer.E_HUMAN &&
-                    bytCurrentPositions[2, i] == (byte)EPlayer.E_HUMAN)
-				{
-					//Human won
-                    return EPlayer.E_HUMAN;
-				}
-			}
+            //Check for diagonal negative slope win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 0] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 2] == ii)
+                    {
+                        return (EPlayer)ii;
+                    }
+                }
+            }
 
-			for (int i = 0; i <= 2; i++)
-			{
-                if (bytCurrentPositions[0, i] == (byte)EPlayer.E_COMPUTER &&
-                    bytCurrentPositions[1, i] == (byte)EPlayer.E_COMPUTER &&
-                    bytCurrentPositions[2, i] == (byte)EPlayer.E_COMPUTER)
-				{
-					//Computer won
-                    return EPlayer.E_COMPUTER;
-				}
-			}
+            //Check for diagonal positive slope win
+            for (int i = 0; i <= 2; i++)
+            {
+                for (byte ii = 1; ii <= 2; ii++)
+                {
+                    if (bytCurrentPositions[0, 2] == ii &&
+                        bytCurrentPositions[1, 1] == ii &&
+                        bytCurrentPositions[2, 0] == ii)
+                    {
+                        return (EPlayer)ii;
+                    }
+                }
+            }
 
-			//Check for diagonal win
-            if (bytCurrentPositions[0, 0] == (byte)EPlayer.E_HUMAN &&
-                bytCurrentPositions[1, 1] == (byte)EPlayer.E_HUMAN &&
-                bytCurrentPositions[2, 2] == (byte)EPlayer.E_HUMAN)
-			{
-				//Human won
-                return EPlayer.E_HUMAN;
-			}
-
-            if (bytCurrentPositions[0, 2] == (byte)EPlayer.E_HUMAN &&
-                bytCurrentPositions[1, 1] == (byte)EPlayer.E_HUMAN &&
-                bytCurrentPositions[2, 0] == (byte)EPlayer.E_HUMAN)
-			{
-				//Human won
-                return EPlayer.E_HUMAN;
-			}
-
-            if (bytCurrentPositions[0, 0] == (byte)EPlayer.E_COMPUTER &&
-                bytCurrentPositions[1, 1] == (byte)EPlayer.E_COMPUTER &&
-                bytCurrentPositions[2, 2] == (byte)EPlayer.E_COMPUTER)
-			{
-				//Computer won
-				return EPlayer.E_COMPUTER;
-			}
-
-            if (bytCurrentPositions[0, 2] == (byte)EPlayer.E_COMPUTER &&
-                bytCurrentPositions[1, 1] == (byte)EPlayer.E_COMPUTER &&
-                bytCurrentPositions[2, 0] == (byte)EPlayer.E_COMPUTER)
-			{
-				//Computer won
-                return EPlayer.E_COMPUTER;
-			}
-			return 0;
-#endregion
+            return (EPlayer)0; //No winner
 		}
 
 		public bool CheckForTie()
@@ -338,135 +295,158 @@ namespace CS_TickTackToe
 		// x| |     x| |      | |
 		//  | |      |x|      |x|
 		//  | |x     | |      | |x
-		public byte[] TwoInSequence(byte bytPlayer)
+		public byte[] FindTwoInSequence(byte bytPlayer)
 		{
 			byte[] bytMove = new byte[2];
 
-#region Check for a sequence horizontally
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 2;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,0] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,1] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 1;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[i,1] == bytPlayer &&
-					bytCurrentPositions[i,2] == bytPlayer &&
-					bytCurrentPositions[i,0] == 0)
-				{
-					bytMove[0] = i;
-					bytMove[1] = 0;
-					return bytMove;
-				}
-			}	
-#endregion
-
-#region Check for a sequence verically
-			for (byte i = 0; i <= 2; i++)
-			{
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == 0)
-				{
-					bytMove[0] = 2;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[0,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[1,i] == 0)
-				{
-					bytMove[0] = 1;
-					bytMove[1] = i;
-					return bytMove;
-				}
-
-				if (bytCurrentPositions[1,i] == bytPlayer &&
-					bytCurrentPositions[2,i] == bytPlayer &&
-					bytCurrentPositions[0,i] == 0)
-				{
-					bytMove[0] = 0;
-					bytMove[1] = i;
-					return bytMove;
-				}
-			}	
-#endregion
-
-#region Check for a sequence Diagonally
-			//Diagonally with negative slope
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,0] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,2] == bytPlayer &&
-				bytCurrentPositions[0,0] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			//Diagonally with positive slope
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == 0)
-			{
-				bytMove[0] = 2;
-				bytMove[1] = 0;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[0,2] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[1,1] == 0)
-			{
-				bytMove[0] = 1;
-				bytMove[1] = 1;
-				return bytMove;
-			}
-
-			if (bytCurrentPositions[1,1] == bytPlayer &&
-				bytCurrentPositions[2,0] == bytPlayer &&
-				bytCurrentPositions[0,2] == 0)
-			{
-				bytMove[0] = 0;
-				bytMove[1] = 2;
-				return bytMove;
-			}
-#endregion
-
-            bytMove[0] = UNDEFINED_MOVE;
-            bytMove[1] = UNDEFINED_MOVE;
-			return bytMove;
+            if (FoundHorizontalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundVerticalSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalNegativeSlopeSequence(bytMove, bytPlayer))
+                return bytMove;
+            else if (FoundDiagonalPositiveSlopeSequence(bytMove, bytPlayer))
+                return bytMove;
+            else
+            {
+            	bytMove[0] = UNDEFINED_MOVE;
+            	bytMove[1] = UNDEFINED_MOVE;
+                return bytMove;
+            }
 		}
+
+        public bool FoundHorizontalSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 2;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 0] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 1] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 1;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[i, 1] == bytPlayer &&
+                    bytCurrentPositions[i, 2] == bytPlayer &&
+                    bytCurrentPositions[i, 0] == 0)
+                {
+                    bytMoveArray[0] = i;
+                    bytMoveArray[1] = 0;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FoundVerticalSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            for (byte i = 0; i <= 2; i++)
+            {
+                if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == 0)
+                {
+                    bytMoveArray[0] = 2;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[0, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[1, i] == 0)
+                {
+                    bytMoveArray[0] = 1;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+
+                else if (bytCurrentPositions[1, i] == bytPlayer &&
+                    bytCurrentPositions[2, i] == bytPlayer &&
+                    bytCurrentPositions[0, i] == 0)
+                {
+                    bytMoveArray[0] = 0;
+                    bytMoveArray[1] = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FoundDiagonalPositiveSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 2] == bytPlayer &&
+                bytCurrentPositions[2, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                 bytCurrentPositions[2, 0] == bytPlayer &&
+                 bytCurrentPositions[0, 2] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+
+            else
+                return false;
+        }
+
+        public bool FoundDiagonalNegativeSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        {
+            if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == 0)
+            {
+                bytMoveArray[0] = 2;
+                bytMoveArray[1] = 2;
+                return true;
+            }
+
+            else if (bytCurrentPositions[0, 0] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[1, 1] == 0)
+            {
+                bytMoveArray[0] = 1;
+                bytMoveArray[1] = 1;
+                return true;
+            }
+
+            else if (bytCurrentPositions[1, 1] == bytPlayer &&
+                bytCurrentPositions[2, 2] == bytPlayer &&
+                bytCurrentPositions[0, 0] == 0)
+            {
+                bytMoveArray[0] = 0;
+                bytMoveArray[1] = 0;
+                return true;
+            }
+
+            else
+                return false;
+        }
 	}//End class
 }//End Namespace
