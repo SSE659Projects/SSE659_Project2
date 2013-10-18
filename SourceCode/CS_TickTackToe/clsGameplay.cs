@@ -9,6 +9,7 @@ namespace CS_TickTackToe
 	
 	public class clsGameplay
 	{
+        const int UNDEFINED_MOVE = 10;
 		//1 = human 2 = comp
 		public byte bytCurrentPlayer = 1;
 		public int intHumanScore = 0;
@@ -99,7 +100,7 @@ namespace CS_TickTackToe
 				//that only blindly moves
 				//if no defensive move
 				byte[] bytMove = TwoInSequence(1);
-				if (bytMove[0] != 10 && bytMove[1] != 10)
+                if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
 					SetPosition(2, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
@@ -156,7 +157,7 @@ namespace CS_TickTackToe
 				//no defensive more it makes a random move
 				byte[] bytMove = TwoInSequence(2);
 				byte[] bytMove2 = TwoInSequence(1);
-				if (bytMove[0] != 10 && bytMove[1] != 10)
+                if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
 					SetPosition(2, Convert.ToInt32(bytMove[0]),
 						Convert.ToInt32(bytMove[1]));
@@ -172,7 +173,7 @@ namespace CS_TickTackToe
 						}
 					}
 				}
-				else if (bytMove2[0] != 10 && bytMove2[1] != 10)
+                else if (bytMove2[0] != UNDEFINED_MOVE && bytMove2[1] != UNDEFINED_MOVE)
 				{
 					SetPosition(2, Convert.ToInt32(bytMove2[0]),
 						Convert.ToInt32(bytMove2[1]));
@@ -484,8 +485,8 @@ namespace CS_TickTackToe
 			}
 #endregion
 
-			bytMove[0] = 10;
-			bytMove[1] = 10;
+            bytMove[0] = UNDEFINED_MOVE;
+            bytMove[1] = UNDEFINED_MOVE;
 			return bytMove;
 		}
 	}//End class
