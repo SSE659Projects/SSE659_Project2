@@ -92,23 +92,15 @@ namespace CS_TickTackToe
 				try
 				{
 					System.Random rnd = new System.Random();
-					int pos1 = rnd.Next(0, 3);
-					int pos2 = rnd.Next(0, 3);
+                    int positionX = rnd.Next(0, 3);
+                    int positionY = rnd.Next(0, 3);
 					System.GC.Collect();
 
-					if (bytCurrentPositions[pos1, pos2] == 0)
+                    if (bytCurrentPositions[positionX, positionY] == 0)
 					{
 						//No one is using it so good to go
-                        SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
+                        SetComputerPosition(positionX, positionY);
+
 					}
 					else
 					{
@@ -129,20 +121,10 @@ namespace CS_TickTackToe
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
-				byte[] bytMove = TwoInSequence(1);
+                byte[] bytMove = TwoInSequence((byte)EPlayer.E_HUMAN);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
-                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
 				}
 				else
 				{
@@ -150,22 +132,13 @@ namespace CS_TickTackToe
 					//go random again
 					System.Random rnd = new System.Random();
 				RetryRandom:
-					int pos1 = rnd.Next(0, 3);
-					int pos2 = rnd.Next(0, 3);
+					int positionX = rnd.Next(0, 3);
+					int positionY = rnd.Next(0, 3);
 
-					if (bytCurrentPositions[pos1, pos2] == 0)
+                    if (bytCurrentPositions[positionX, positionY] == 0)
 					{
 						//No one is using it so good to go
-                        SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
+                        SetComputerPosition(positionX, positionY);
 					}
 					else
 					{
@@ -183,35 +156,15 @@ namespace CS_TickTackToe
 				//move to make it makes a defensive move
 				//if there is no offensive move and
 				//no defensive more it makes a random move
-				byte[] bytMove = TwoInSequence(2);
-				byte[] bytMove2 = TwoInSequence(1);
+				byte[] bytMove = TwoInSequence((byte)EPlayer.E_COMPUTER);
+                byte[] bytMove2 = TwoInSequence((byte)EPlayer.E_HUMAN);
                 if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
 				{
-                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove[0]),
-						Convert.ToInt32(bytMove[1]));
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove[0].ToString() 
-							+ bytMove[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
 				}
                 else if (bytMove2[0] != UNDEFINED_MOVE && bytMove2[1] != UNDEFINED_MOVE)
 				{
-                    SetPosition(EPlayer.E_COMPUTER, Convert.ToInt32(bytMove2[0]),
-						Convert.ToInt32(bytMove2[1]));
-					int i;
-					for (i = 0; i < clsPicCol.Count; i++)
-					{
-						if (clsPicCol[i].Name.Equals("pic" + bytMove2[0].ToString() 
-							+ bytMove2[1].ToString()))
-						{
-							clsPicCol[i].Image = picO.Image;
-						}
-					}
+                    SetComputerPosition(Convert.ToInt32(bytMove2[0]), Convert.ToInt32(bytMove2[1]));
 				}
 				else
 				{
@@ -219,22 +172,13 @@ namespace CS_TickTackToe
 					//go random again
 					System.Random rnd = new System.Random();
 				RetryRandom2:
-					int pos1 = rnd.Next(0, 3);
-					int pos2 = rnd.Next(0, 3);
+                    int positionX = rnd.Next(0, 3);
+                    int positionY = rnd.Next(0, 3);
 
-					if (bytCurrentPositions[pos1, pos2] == 0)
+                    if (bytCurrentPositions[positionX, positionY] == 0)
 					{
 						//No one is using it so good to go
-						SetPosition(EPlayer.E_COMPUTER, pos1, pos2);
-						int i;
-						for (i = 0; i < clsPicCol.Count; i++)
-						{
-							if (clsPicCol[i].Name.Equals("pic" + pos1.ToString() 
-								+ pos2.ToString()))
-							{
-								clsPicCol[i].Image = picO.Image;
-							}
-						}
+                        SetComputerPosition(positionX, positionY);
 					}
 					else
 					{
@@ -246,6 +190,20 @@ namespace CS_TickTackToe
 			}
             m_Player = EPlayer.E_HUMAN;
 		}
+
+        private void SetComputerPosition(int positionX, int positionY)
+        {
+            SetPosition(EPlayer.E_COMPUTER, positionX, positionY);
+            int i;
+            for (i = 0; i < clsPicCol.Count; i++)
+            {
+                if (clsPicCol[i].Name.Equals("pic" + positionX.ToString()
+                    + positionY.ToString()))
+                {
+                    clsPicCol[i].Image = picO.Image;
+                }
+            }
+        }
 
 		public EPlayer CheckWin()
 		{
