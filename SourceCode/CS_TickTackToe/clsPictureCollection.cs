@@ -1,12 +1,12 @@
+// clsPictureCollection.cs - Class that contains methods for adding and removing
+// square pictures on the Tic Tac Toe board, determine the actions of a square
+// selection, evaluate the game's status, and clear the Tic Tac Toe board.
 using System;
 using System.Windows.Forms;
 
 namespace CS_TickTackToe
 {
-	/// <summary>
-	/// Summary description for clsPictureCollection.
-	/// </summary>
-	//Inherit from the Collection base class to add functionality
+	//Inherits from the Collection base class to add functionality
 	//to this class.
 	public class clsPictureCollection : System.Collections.CollectionBase
 	{
@@ -19,16 +19,16 @@ namespace CS_TickTackToe
 
 		public StatusBar sbStatus;
 
+        // Function used as the clsPictureCollection constructor
 		public clsPictureCollection(Form frmSetHost, clsGameplay clsCurrentGame,
 			PictureBox picXHolder)
 		{
-			//Hook this class up with all the information it
-			//it needs to play the game!
 			frmHost = frmSetHost;
 			clsGame = clsCurrentGame;
 			picX = picXHolder;
 		}
 
+        // Function used as the get method for the PictureBox
 		public PictureBox this [int Index]
 		{
 			get
@@ -37,23 +37,26 @@ namespace CS_TickTackToe
 			}
 		}
 
+        // Function used to add the squares to the Tic Tac Toe board
 		public void AddPicture(PictureBox picBox)
 		{
 			this.List.Add(picBox);
 			picBox.Click += new System.EventHandler(Picture_Click);
 		}
 
+        // Function that removes the last Picturebox added to the array from 
+        // host form controls collection
 		public void RemovePicturebox()
 		{
 			if (this.Count > 0)
 			{
-				// Remove the last Picturebox added to the array from the host form 
-				// controls collection.
 				frmHost.Controls.Remove(this[this.Count -1]);
 				this.List.RemoveAt(this.Count -1);
 			}
 		}
 
+        // Function used for the actions of the square selections on the Tic 
+        // Tac Toe board and evaluates the status of the game
 		public void Picture_Click(Object sender, System.EventArgs e)
 		{
 			PictureBox picBox = (PictureBox) sender;
@@ -68,22 +71,18 @@ namespace CS_TickTackToe
 				}
 				else
 				{
-					//Exit prematurely do to claimed block
+					// Exit prematurely as a result of a claimed block
 					return;
 				}
 
-				//Check the status of the game winner/tie/still going
-				//this is done twice to make it as optimal as possible!
                 CheckGameStatus();
 
-				//You took your turn so now it is the computers turn
+				//Computer's turn for board move
                 clsGame.Player = clsGameplay.EPlayer.E_COMPUTER;
 				sbStatus.Panels[0].Text = "Computer's Move";
                 clsGame.ComputerMoveAI();
 				sbStatus.Panels[0].Text = "Your Move";
 
-				//Check the status of the game winner/tie/still going
-				//this is done twice to make it as optimal as possible!
                 CheckGameStatus();
 			}
 		}
@@ -114,6 +113,7 @@ namespace CS_TickTackToe
             }
         }
 
+        // Function used to clear the squares on the Tic Tac Toe board
 		public void Clear_Pictures()
 		{
 			for (int i = 0; i < this.List.Count; i++)
