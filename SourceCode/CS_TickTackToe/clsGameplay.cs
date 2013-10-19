@@ -144,7 +144,6 @@ namespace CS_TickTackToe
 					RandomComputerMove(rnd);
 				}
 			}
-            m_Player = EPlayer.E_HUMAN;
 		}
 		
 		public void RandomComputerMove(Random randomNumber)

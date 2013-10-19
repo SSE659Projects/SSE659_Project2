@@ -101,6 +101,7 @@ namespace CS_TickTackToe
                 clsGame.Player = clsGameplay.EPlayer.E_COMPUTER;
 				sbStatus.Panels[0].Text = "Computer's Move";
                 clsGame.ComputerMoveAI();
+                clsGame.Player = clsGameplay.EPlayer.E_HUMAN;
 				sbStatus.Panels[0].Text = "Your Move";
 
                 CheckGameStatus();
