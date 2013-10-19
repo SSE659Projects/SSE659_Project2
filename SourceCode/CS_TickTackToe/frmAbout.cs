@@ -1,3 +1,5 @@
+// frmAbout.cs - Class used for displaying the about information when the user
+// selects the about option.
 using System;
 using System.Drawing;
 using System.Collections;
@@ -6,35 +8,23 @@ using System.Windows.Forms;
 
 namespace CS_TickTackToe
 {
-	/// <summary>
-	/// Summary description for frmAbout.
-	/// </summary>
 	public class frmAbout : System.Windows.Forms.Form
 	{
 		private System.Windows.Forms.Label lblTicTacToe;
 		private System.Windows.Forms.Label lblBy;
 		private System.Windows.Forms.LinkLabel llHexsoft;
 		private System.Windows.Forms.Button btnOk;
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
+
 		private System.ComponentModel.Container components = null;
 
+        // Constructor for frmAbout
 		public frmAbout()
 		{
-			//
 			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+        // Function for cleaning up any resources being used
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -119,6 +109,7 @@ namespace CS_TickTackToe
 		}
 		#endregion
 
+        // Function for displaying the website from the author of the Tic Tac Toe game
 		private void llHexsoft_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{
 			llHexsoft.LinkVisited = true;
