@@ -14,8 +14,8 @@ namespace CS_TickTackToe
 		private PictureBox picX;
 		private readonly Form frmHost;
 
-        public int intHumanScore = 0;
-        public int intCompScore = 0;
+        public int m_HumanScore = 0;
+        public int m_ComputerScore = 0;
 
 		public StatusBar sbStatus;
 
@@ -76,17 +76,17 @@ namespace CS_TickTackToe
 				//this is done twice to make it as optimal as possible!
                 if (clsGame.GameWinner == clsGameplay.EPlayer.E_HUMAN)
 				{
-					intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + intHumanScore.ToString()
-						+ " Computer: " + intCompScore.ToString();
+					m_HumanScore++;
+					sbStatus.Panels[1].Text = "You: " + m_HumanScore.ToString()
+						+ " Computer: " + m_ComputerScore.ToString();
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
                 else if (clsGame.GameWinner == clsGameplay.EPlayer.E_COMPUTER)
 				{
-					intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + intHumanScore.ToString()
-						+ " Computer: " + intCompScore.ToString();
+					m_ComputerScore++;
+					sbStatus.Panels[1].Text = "You: " + m_HumanScore.ToString()
+						+ " Computer: " + m_ComputerScore.ToString();
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
@@ -106,17 +106,17 @@ namespace CS_TickTackToe
 				//this is done twice to make it as optimal as possible!
                 if (clsGame.GameWinner == clsGameplay.EPlayer.E_HUMAN)
 				{
-					intHumanScore++;
-					sbStatus.Panels[1].Text = "You: " + intHumanScore.ToString()
-						+ " Computer: " + intCompScore.ToString();
+					m_HumanScore++;
+					sbStatus.Panels[1].Text = "You: " + m_HumanScore.ToString()
+						+ " Computer: " + m_ComputerScore.ToString();
 					MessageBox.Show("You won!");
 					clsGame.NewGame();
 				}
                 else if (clsGame.GameWinner == clsGameplay.EPlayer.E_COMPUTER)
 				{
-					intCompScore++;
-					sbStatus.Panels[1].Text = "You: " + intHumanScore.ToString()
-						+ " Computer: " + intCompScore.ToString();
+					m_ComputerScore++;
+					sbStatus.Panels[1].Text = "You: " + m_HumanScore.ToString()
+						+ " Computer: " + m_ComputerScore.ToString();
 					MessageBox.Show("You lost.");
 					clsGame.NewGame();
 				}
