@@ -126,9 +126,9 @@ namespace CS_TickTackToe
             // lblTitle
             // 
             this.lblTitle.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(10, 9);
+            this.lblTitle.Location = new System.Drawing.Point(8, 8);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(326, 46);
+            this.lblTitle.Size = new System.Drawing.Size(272, 40);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Tic-Tac-Toe";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -137,27 +137,27 @@ namespace CS_TickTackToe
             // 
             this.lblNote.AutoSize = true;
             this.lblNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNote.Location = new System.Drawing.Point(192, 55);
+            this.lblNote.Location = new System.Drawing.Point(160, 48);
             this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(124, 15);
+            this.lblNote.Size = new System.Drawing.Size(106, 13);
             this.lblNote.TabIndex = 1;
             this.lblNote.Text = "Single-Player Version";
             // 
             // pic00
             // 
             this.pic00.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic00.Location = new System.Drawing.Point(19, 83);
+            this.pic00.Location = new System.Drawing.Point(16, 72);
             this.pic00.Name = "pic00";
-            this.pic00.Size = new System.Drawing.Size(75, 72);
+            this.pic00.Size = new System.Drawing.Size(62, 62);
             this.pic00.TabIndex = 2;
             this.pic00.TabStop = false;
             // 
             // picO
             // 
             this.picO.Image = ((System.Drawing.Image)(resources.GetObject("picO.Image")));
-            this.picO.Location = new System.Drawing.Point(-38, 83);
+            this.picO.Location = new System.Drawing.Point(-32, 72);
             this.picO.Name = "picO";
-            this.picO.Size = new System.Drawing.Size(72, 69);
+            this.picO.Size = new System.Drawing.Size(60, 60);
             this.picO.TabIndex = 3;
             this.picO.TabStop = false;
             this.picO.Visible = false;
@@ -165,27 +165,27 @@ namespace CS_TickTackToe
             // pic01
             // 
             this.pic01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic01.Location = new System.Drawing.Point(138, 83);
+            this.pic01.Location = new System.Drawing.Point(115, 72);
             this.pic01.Name = "pic01";
-            this.pic01.Size = new System.Drawing.Size(74, 72);
+            this.pic01.Size = new System.Drawing.Size(62, 62);
             this.pic01.TabIndex = 4;
             this.pic01.TabStop = false;
             // 
             // pic02
             // 
             this.pic02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic02.Location = new System.Drawing.Point(259, 83);
+            this.pic02.Location = new System.Drawing.Point(216, 72);
             this.pic02.Name = "pic02";
-            this.pic02.Size = new System.Drawing.Size(75, 72);
+            this.pic02.Size = new System.Drawing.Size(62, 62);
             this.pic02.TabIndex = 5;
             this.pic02.TabStop = false;
             // 
             // picX
             // 
             this.picX.Image = ((System.Drawing.Image)(resources.GetObject("picX.Image")));
-            this.picX.Location = new System.Drawing.Point(-38, 138);
+            this.picX.Location = new System.Drawing.Point(-32, 120);
             this.picX.Name = "picX";
-            this.picX.Size = new System.Drawing.Size(72, 70);
+            this.picX.Size = new System.Drawing.Size(60, 60);
             this.picX.TabIndex = 6;
             this.picX.TabStop = false;
             this.picX.Visible = false;
@@ -193,66 +193,66 @@ namespace CS_TickTackToe
             // pic10
             // 
             this.pic10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic10.Location = new System.Drawing.Point(19, 166);
+            this.pic10.Location = new System.Drawing.Point(16, 144);
             this.pic10.Name = "pic10";
-            this.pic10.Size = new System.Drawing.Size(75, 72);
+            this.pic10.Size = new System.Drawing.Size(62, 62);
             this.pic10.TabIndex = 7;
             this.pic10.TabStop = false;
             // 
             // pic11
             // 
             this.pic11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic11.Location = new System.Drawing.Point(138, 166);
+            this.pic11.Location = new System.Drawing.Point(115, 144);
             this.pic11.Name = "pic11";
-            this.pic11.Size = new System.Drawing.Size(74, 72);
+            this.pic11.Size = new System.Drawing.Size(62, 62);
             this.pic11.TabIndex = 8;
             this.pic11.TabStop = false;
             // 
             // pic12
             // 
             this.pic12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic12.Location = new System.Drawing.Point(259, 166);
+            this.pic12.Location = new System.Drawing.Point(216, 144);
             this.pic12.Name = "pic12";
-            this.pic12.Size = new System.Drawing.Size(75, 72);
+            this.pic12.Size = new System.Drawing.Size(62, 62);
             this.pic12.TabIndex = 9;
             this.pic12.TabStop = false;
             // 
             // pic22
             // 
             this.pic22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic22.Location = new System.Drawing.Point(259, 249);
+            this.pic22.Location = new System.Drawing.Point(216, 216);
             this.pic22.Name = "pic22";
-            this.pic22.Size = new System.Drawing.Size(75, 72);
+            this.pic22.Size = new System.Drawing.Size(62, 62);
             this.pic22.TabIndex = 12;
             this.pic22.TabStop = false;
             // 
             // pic21
             // 
             this.pic21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic21.Location = new System.Drawing.Point(138, 249);
+            this.pic21.Location = new System.Drawing.Point(115, 216);
             this.pic21.Name = "pic21";
-            this.pic21.Size = new System.Drawing.Size(74, 72);
+            this.pic21.Size = new System.Drawing.Size(62, 62);
             this.pic21.TabIndex = 11;
             this.pic21.TabStop = false;
             // 
             // pic20
             // 
             this.pic20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pic20.Location = new System.Drawing.Point(19, 249);
+            this.pic20.Location = new System.Drawing.Point(16, 216);
             this.pic20.Name = "pic20";
-            this.pic20.Size = new System.Drawing.Size(75, 72);
+            this.pic20.Size = new System.Drawing.Size(62, 62);
             this.pic20.TabIndex = 10;
             this.pic20.TabStop = false;
             // 
             // sbGameStatus
             // 
-            this.sbGameStatus.Location = new System.Drawing.Point(0, 339);
+            this.sbGameStatus.Location = new System.Drawing.Point(0, 289);
             this.sbGameStatus.Name = "sbGameStatus";
             this.sbGameStatus.Panels.AddRange(new System.Windows.Forms.StatusBarPanel[] {
             this.sbpCurrentPlayer,
             this.sbpScore,
             this.sbpDifficulty});
-            this.sbGameStatus.Size = new System.Drawing.Size(356, 25);
+            this.sbGameStatus.Size = new System.Drawing.Size(290, 21);
             this.sbGameStatus.TabIndex = 13;
             // 
             // sbpCurrentPlayer
@@ -351,8 +351,8 @@ namespace CS_TickTackToe
             // 
             // frmMain
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-            this.ClientSize = new System.Drawing.Size(356, 364);
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(290, 310);
             this.Controls.Add(this.sbGameStatus);
             this.Controls.Add(this.pic22);
             this.Controls.Add(this.pic21);
@@ -481,10 +481,10 @@ namespace CS_TickTackToe
 		private void mnuNewGame_Click(object sender, System.EventArgs e)
 		{
 			clsGame.NewGame();
-			clsGame.intCompScore = 0;
-			clsGame.intHumanScore = 0;
-			sbGameStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-				+ " Computer: " + clsGame.intCompScore.ToString();
+			picHolders.intCompScore = 0;
+			picHolders.intHumanScore = 0;
+			sbGameStatus.Panels[1].Text = "You: " + picHolders.intHumanScore.ToString()
+				+ " Computer: " + picHolders.intCompScore.ToString();
 		}
 	}//End class
 }//End Namespace
