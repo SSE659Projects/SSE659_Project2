@@ -1,3 +1,4 @@
+// frmMain.cs - Class used for the user's clicked options and starting the game.
 using System;
 using System.Drawing;
 using System.Collections;
@@ -8,9 +9,6 @@ using System.Runtime.InteropServices;
 
 namespace CS_TickTackToe
 {
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
 	public class frmMain : System.Windows.Forms.Form
 	{
 		private System.Windows.Forms.Label lblTitle;
@@ -43,21 +41,14 @@ namespace CS_TickTackToe
         private System.Windows.Forms.StatusBarPanel sbpDifficulty;
         private IContainer components;
 
+        // Constructor for frmMain
 		public frmMain()
 		{
-			//
 			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
-
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
 		}
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+        // Function for cleaning up any resources being used
 		protected override void Dispose( bool disposing )
 		{
 			if( disposing )
@@ -394,9 +385,6 @@ namespace CS_TickTackToe
 		}
 		#endregion
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
 		[STAThread]
 		static void Main() 
 		{
@@ -409,6 +397,7 @@ namespace CS_TickTackToe
 		[DllImport("user32.dll")]
 		private static extern short GetAsyncKeyState(int vKey);
 
+        // Function used to setup and start the game
 		private void frmMain_Load(object sender, System.EventArgs e)
 		{
 			sbGameStatus.ShowPanels = true;	
@@ -416,6 +405,7 @@ namespace CS_TickTackToe
 			clsGame = new clsGameplay(picO);
 			picHolders = new clsPictureCollection(this, clsGame, picX);
 			picHolders.sbStatus = sbGameStatus;
+
 			//Add the pictures to the collection
 			for (int i = 0; i <= 2; i++)
 			{
@@ -427,31 +417,31 @@ namespace CS_TickTackToe
 						{
 							picHolders.AddPicture((PictureBox) this.Controls[x]);
 						}
-					}//End for
-				}//End for
-			}//End for
+					}
+				}
+			}
+
 			//Start a new game
 			clsGame.clsPicCol = picHolders;
 			clsGame.NewGame();
 		}
 
+        // Function that exits the game when the user click the X button on the screen
 		private void mnuExit_Click(object sender, System.EventArgs e)
 		{
 			Application.Exit();
 		}
 
+        // Function that brings up the About windown when the user clicks the About option
 		private void mnuAbout_Click(object sender, System.EventArgs e)
 		{
 			frmAbout fAbout = new frmAbout();
 			fAbout.ShowDialog();
 		}
 
+        // Function used to set the difficulty when the user selects a desired difficulty
 		private void mnuChkEasy_Click(object sender, System.EventArgs e)
 		{
-			//All of the difficulty menu items use this event
-			//No, a switch would not work here do to the fact
-			//that switchs only work with strings and intergers
-			//and we are using objects!
 			if (sender == mnuChkEasy)
 			{
 				mnuChkMedium.Checked = false;
@@ -478,6 +468,7 @@ namespace CS_TickTackToe
 			}
 		}
 
+        // Function to start a new game when the user selects New Game on the game window
 		private void mnuNewGame_Click(object sender, System.EventArgs e)
 		{
 			clsGame.NewGame();
