@@ -298,13 +298,10 @@ namespace CS_TickTackToe
 		{
 			byte[] bytMove = new byte[2];
 
-            if (FoundHorizontalSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundVerticalSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundDiagonalNegativeSlopeSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundDiagonalPositiveSlopeSequence(bytMove, bytPlayer))
+            if (FoundHorizontalSequence(bytMove, bytPlayer) |              
+            FoundVerticalSequence(bytMove, bytPlayer) |
+            FoundDiagonalNegativeSlopeSequence(bytMove, bytPlayer) |    
+            FoundDiagonalPositiveSlopeSequence(bytMove, bytPlayer))
                 return bytMove;
             else
             {
