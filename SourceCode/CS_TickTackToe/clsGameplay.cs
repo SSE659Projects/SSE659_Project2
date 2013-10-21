@@ -19,9 +19,6 @@ namespace CS_TickTackToe
         };
 
         private EPlayer m_Player = EPlayer.E_HUMAN;
-
-		public int intHumanScore = 0;
-		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
 		private EPlayer m_Winner = EPlayer.E_NOT_SET_OR_DEFINED;
 
