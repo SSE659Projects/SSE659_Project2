@@ -108,7 +108,7 @@ namespace CS_TickTackToe
 				//if no defensive move
                 clsNextMovePosition nextDefensiveMovePosition = new clsNextMovePosition();
                 FindTwoInSequence(nextDefensiveMovePosition, (byte)EPlayer.E_HUMAN);
-                if (nextDefensiveMovePosition.PositionX != UNDEFINED_MOVE && nextDefensiveMovePosition.PositionY != UNDEFINED_MOVE)
+                if (nextDefensiveMovePosition.IsNextMoveDefined())
 				{
                     SetComputerPosition(Convert.ToInt32(nextDefensiveMovePosition.PositionX), Convert.ToInt32(nextDefensiveMovePosition.PositionY));
 				}
@@ -132,12 +132,11 @@ namespace CS_TickTackToe
                 clsNextMovePosition nextDefensiveMovePosition = new clsNextMovePosition();
 				FindTwoInSequence(nextOffensiveMovePosition, (byte)EPlayer.E_COMPUTER);
                 FindTwoInSequence(nextDefensiveMovePosition, (byte)EPlayer.E_HUMAN);
-                //byte[] bytMove2 = FindTwoInSequence((byte)EPlayer.E_HUMAN);
-                if (nextOffensiveMovePosition.PositionX != UNDEFINED_MOVE && nextOffensiveMovePosition.PositionY != UNDEFINED_MOVE)
+                if (nextOffensiveMovePosition.IsNextMoveDefined())
 				{
                     SetComputerPosition(Convert.ToInt32(nextOffensiveMovePosition.PositionX), Convert.ToInt32(nextOffensiveMovePosition.PositionY));
 				}
-                else if (nextDefensiveMovePosition.PositionX != UNDEFINED_MOVE && nextDefensiveMovePosition.PositionY != UNDEFINED_MOVE)
+                else if (nextDefensiveMovePosition.IsNextMoveDefined())
 				{
                     SetComputerPosition(Convert.ToInt32(nextDefensiveMovePosition.PositionX), Convert.ToInt32(nextDefensiveMovePosition.PositionY));
 				}

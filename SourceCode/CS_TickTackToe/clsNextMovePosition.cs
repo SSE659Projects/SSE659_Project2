@@ -26,5 +26,10 @@ namespace CS_TickTackToe
             set { m_positionY = value; }
             get { return m_positionY; }
         }
+
+        public bool IsNextMoveDefined()
+        {
+            return (PositionX != clsGameplay.UNDEFINED_MOVE && PositionY != clsGameplay.UNDEFINED_MOVE);
+        }
     }
 }
