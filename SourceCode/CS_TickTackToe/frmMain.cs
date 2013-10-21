@@ -450,7 +450,7 @@ namespace CS_TickTackToe
 		{
 			//All of the difficulty menu items use this event
 			//No, a switch would not work here do to the fact
-			//that switchs only work with strings and intergers
+			//that switchs only work with strings and integers
 			//and we are using objects!
 			if (sender == mnuChkEasy)
 			{
@@ -481,10 +481,10 @@ namespace CS_TickTackToe
 		private void mnuNewGame_Click(object sender, System.EventArgs e)
 		{
 			clsGame.NewGame();
-			clsGame.intCompScore = 0;
-			clsGame.intHumanScore = 0;
-			sbGameStatus.Panels[1].Text = "You: " + clsGame.intHumanScore.ToString()
-				+ " Computer: " + clsGame.intCompScore.ToString();
+            picHolders.ComputerScore = 0;
+            picHolders.HumanScore = 0;
+            sbGameStatus.Panels[1].Text = "You: " + picHolders.HumanScore.ToString()
+                + " Computer: " + picHolders.ComputerScore.ToString();
 		}
 	}//End class
 }//End Namespace
