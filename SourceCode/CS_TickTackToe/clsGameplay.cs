@@ -9,7 +9,7 @@ namespace CS_TickTackToe
 	
 	public class clsGameplay
 	{
-        const int UNDEFINED_MOVE = 10;
+        public const int UNDEFINED_MOVE = 10;
 		
         public enum EPlayer
         {
@@ -24,6 +24,7 @@ namespace CS_TickTackToe
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
 		private EPlayer m_Winner = EPlayer.E_NOT_SET_OR_DEFINED;
+        //private clsNextMovePosition m_NextMovePosition;
 
         public enum EGameDifficulty
         {
@@ -106,10 +107,11 @@ namespace CS_TickTackToe
 				//A defensive algorithm
 				//that only blindly moves
 				//if no defensive move
-                byte[] bytMove = FindTwoInSequence((byte)EPlayer.E_HUMAN);
-                if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
+                clsNextMovePosition nextDefensiveMovePosition = new clsNextMovePosition();
+                FindTwoInSequence(nextDefensiveMovePosition, (byte)EPlayer.E_HUMAN);
+                if (nextDefensiveMovePosition.PositionX != UNDEFINED_MOVE && nextDefensiveMovePosition.PositionY != UNDEFINED_MOVE)
 				{
-                    SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
+                    SetComputerPosition(Convert.ToInt32(nextDefensiveMovePosition.PositionX), Convert.ToInt32(nextDefensiveMovePosition.PositionY));
 				}
 				else
 				{
@@ -126,15 +128,19 @@ namespace CS_TickTackToe
 				//move to make it makes a defensive move
 				//if there is no offensive move and
 				//no defensive more it makes a random move
-				byte[] bytMove = FindTwoInSequence((byte)EPlayer.E_COMPUTER);
-                byte[] bytMove2 = FindTwoInSequence((byte)EPlayer.E_HUMAN);
-                if (bytMove[0] != UNDEFINED_MOVE && bytMove[1] != UNDEFINED_MOVE)
+
+                clsNextMovePosition nextOffensiveMovePosition = new clsNextMovePosition();
+                clsNextMovePosition nextDefensiveMovePosition = new clsNextMovePosition();
+				FindTwoInSequence(nextOffensiveMovePosition, (byte)EPlayer.E_COMPUTER);
+                FindTwoInSequence(nextDefensiveMovePosition, (byte)EPlayer.E_HUMAN);
+                //byte[] bytMove2 = FindTwoInSequence((byte)EPlayer.E_HUMAN);
+                if (nextOffensiveMovePosition.PositionX != UNDEFINED_MOVE && nextOffensiveMovePosition.PositionY != UNDEFINED_MOVE)
 				{
-                    SetComputerPosition(Convert.ToInt32(bytMove[0]), Convert.ToInt32(bytMove[1]));
+                    SetComputerPosition(Convert.ToInt32(nextOffensiveMovePosition.PositionX), Convert.ToInt32(nextOffensiveMovePosition.PositionY));
 				}
-                else if (bytMove2[0] != UNDEFINED_MOVE && bytMove2[1] != UNDEFINED_MOVE)
+                else if (nextDefensiveMovePosition.PositionX != UNDEFINED_MOVE && nextDefensiveMovePosition.PositionY != UNDEFINED_MOVE)
 				{
-                    SetComputerPosition(Convert.ToInt32(bytMove2[0]), Convert.ToInt32(bytMove2[1]));
+                    SetComputerPosition(Convert.ToInt32(nextDefensiveMovePosition.PositionX), Convert.ToInt32(nextDefensiveMovePosition.PositionY));
 				}
 				else
 				{
@@ -152,7 +158,7 @@ namespace CS_TickTackToe
             int positionX = randomNumber.Next(0, 3);
             int positionY = randomNumber.Next(0, 3);
 
-            if (bytCurrentPositions[positionX, positionY] == 0)
+            if (bytCurrentPositions[positionX, positionY] == (byte)EPlayer.E_NOT_SET_OR_DEFINED)
             {
                 SetBoardPosition(EPlayer.E_COMPUTER, positionX, positionY);
                 int i;
@@ -295,27 +301,25 @@ namespace CS_TickTackToe
 		// x| |     x| |      | |
 		//  | |      |x|      |x|
 		//  | |x     | |      | |x
-		public byte[] FindTwoInSequence(byte bytPlayer)
+		public void FindTwoInSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
 		{
-			byte[] bytMove = new byte[2];
-
-            if (FoundHorizontalSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundVerticalSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundDiagonalNegativeSlopeSequence(bytMove, bytPlayer))
-                return bytMove;
-            else if (FoundDiagonalPositiveSlopeSequence(bytMove, bytPlayer))
-                return bytMove;
+            if (FoundHorizontalSequence(nextMovePosition, bytPlayer))
+                return;
+            else if (FoundVerticalSequence(nextMovePosition, bytPlayer))
+                return;
+            else if (FoundDiagonalNegativeSlopeSequence(nextMovePosition, bytPlayer))
+                return;
+            else if (FoundDiagonalPositiveSlopeSequence(nextMovePosition, bytPlayer))
+                return;
             else
             {
-            	bytMove[0] = UNDEFINED_MOVE;
-            	bytMove[1] = UNDEFINED_MOVE;
-                return bytMove;
+                nextMovePosition.PositionX = UNDEFINED_MOVE;
+                nextMovePosition.PositionY = UNDEFINED_MOVE;
+                return;
             }
 		}
 
-        public bool FoundHorizontalSequence(byte[] bytMoveArray, byte bytPlayer)
+        public bool FoundHorizontalSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             for (byte i = 0; i <= 2; i++)
             {
@@ -323,8 +327,10 @@ namespace CS_TickTackToe
                     bytCurrentPositions[i, 1] == bytPlayer &&
                     bytCurrentPositions[i, 2] == 0)
                 {
-                    bytMoveArray[0] = i;
-                    bytMoveArray[1] = 2;
+                    //bytMoveArray[0] = i;
+                    //bytMoveArray[1] = 2;
+                    nextMovePosition.PositionX = i;
+                    nextMovePosition.PositionY = 2;
                     return true;
                 }
 
@@ -332,8 +338,10 @@ namespace CS_TickTackToe
                     bytCurrentPositions[i, 2] == bytPlayer &&
                     bytCurrentPositions[i, 1] == 0)
                 {
-                    bytMoveArray[0] = i;
-                    bytMoveArray[1] = 1;
+                    //bytMoveArray[0] = i;
+                    //bytMoveArray[1] = 1;
+                    nextMovePosition.PositionX = i;
+                    nextMovePosition.PositionY = 1;
                     return true;
                 }
 
@@ -341,15 +349,17 @@ namespace CS_TickTackToe
                     bytCurrentPositions[i, 2] == bytPlayer &&
                     bytCurrentPositions[i, 0] == 0)
                 {
-                    bytMoveArray[0] = i;
-                    bytMoveArray[1] = 0;
+                    //bytMoveArray[0] = i;
+                    //bytMoveArray[1] = 0;
+                    nextMovePosition.PositionX = i;
+                    nextMovePosition.PositionY = 0;
                     return true;
                 }
             }
             return false;
         }
 
-        public bool FoundVerticalSequence(byte[] bytMoveArray, byte bytPlayer)
+        public bool FoundVerticalSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             for (byte i = 0; i <= 2; i++)
             {
@@ -357,8 +367,10 @@ namespace CS_TickTackToe
                     bytCurrentPositions[1, i] == bytPlayer &&
                     bytCurrentPositions[2, i] == 0)
                 {
-                    bytMoveArray[0] = 2;
-                    bytMoveArray[1] = i;
+                    //bytMoveArray[0] = 2;
+                    //bytMoveArray[1] = i;
+                    nextMovePosition.PositionX = 2;
+                    nextMovePosition.PositionY = i;
                     return true;
                 }
 
@@ -366,8 +378,10 @@ namespace CS_TickTackToe
                     bytCurrentPositions[2, i] == bytPlayer &&
                     bytCurrentPositions[1, i] == 0)
                 {
-                    bytMoveArray[0] = 1;
-                    bytMoveArray[1] = i;
+                    //bytMoveArray[0] = 1;
+                    //bytMoveArray[1] = i;
+                    nextMovePosition.PositionX = 1;
+                    nextMovePosition.PositionY = i;
                     return true;
                 }
 
@@ -375,22 +389,26 @@ namespace CS_TickTackToe
                     bytCurrentPositions[2, i] == bytPlayer &&
                     bytCurrentPositions[0, i] == 0)
                 {
-                    bytMoveArray[0] = 0;
-                    bytMoveArray[1] = i;
+                    //bytMoveArray[0] = 0;
+                    //bytMoveArray[1] = i;
+                    nextMovePosition.PositionX = 0;
+                    nextMovePosition.PositionY = i;
                     return true;
                 }
             }
             return false;
         }
 
-        public bool FoundDiagonalPositiveSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        public bool FoundDiagonalPositiveSlopeSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             if (bytCurrentPositions[0, 2] == bytPlayer &&
                 bytCurrentPositions[1, 1] == bytPlayer &&
                  bytCurrentPositions[2, 0] == 0)
             {
-                bytMoveArray[0] = 2;
-                bytMoveArray[1] = 0;
+                //bytMoveArray[0] = 2;
+                //bytMoveArray[1] = 0;
+                nextMovePosition.PositionX = 2;
+                nextMovePosition.PositionY = 0;
                 return true;
             }
 
@@ -398,8 +416,10 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 0] == bytPlayer &&
                 bytCurrentPositions[1, 1] == 0)
             {
-                bytMoveArray[0] = 1;
-                bytMoveArray[1] = 1;
+                //bytMoveArray[0] = 1;
+                //bytMoveArray[1] = 1;
+                nextMovePosition.PositionX = 1;
+                nextMovePosition.PositionY = 1;
                 return true;
             }
 
@@ -407,8 +427,10 @@ namespace CS_TickTackToe
                  bytCurrentPositions[2, 0] == bytPlayer &&
                  bytCurrentPositions[0, 2] == 0)
             {
-                bytMoveArray[0] = 0;
-                bytMoveArray[1] = 2;
+                //bytMoveArray[0] = 0;
+                //bytMoveArray[1] = 2;
+                nextMovePosition.PositionX = 0;
+                nextMovePosition.PositionY = 2;
                 return true;
             }
 
@@ -416,14 +438,16 @@ namespace CS_TickTackToe
                 return false;
         }
 
-        public bool FoundDiagonalNegativeSlopeSequence(byte[] bytMoveArray, byte bytPlayer)
+        public bool FoundDiagonalNegativeSlopeSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             if (bytCurrentPositions[0, 0] == bytPlayer &&
                 bytCurrentPositions[1, 1] == bytPlayer &&
                 bytCurrentPositions[2, 2] == 0)
             {
-                bytMoveArray[0] = 2;
-                bytMoveArray[1] = 2;
+                //bytMoveArray[0] = 2;
+                //bytMoveArray[1] = 2;
+                nextMovePosition.PositionX = 2;
+                nextMovePosition.PositionY = 2;
                 return true;
             }
 
@@ -431,8 +455,10 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 2] == bytPlayer &&
                 bytCurrentPositions[1, 1] == 0)
             {
-                bytMoveArray[0] = 1;
-                bytMoveArray[1] = 1;
+                //bytMoveArray[0] = 1;
+                //bytMoveArray[1] = 1;
+                nextMovePosition.PositionX = 1;
+                nextMovePosition.PositionY = 1;
                 return true;
             }
 
@@ -440,8 +466,10 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 2] == bytPlayer &&
                 bytCurrentPositions[0, 0] == 0)
             {
-                bytMoveArray[0] = 0;
-                bytMoveArray[1] = 0;
+                //bytMoveArray[0] = 0;
+                //bytMoveArray[1] = 0;
+                nextMovePosition.PositionX = 0;
+                nextMovePosition.PositionY = 0;
                 return true;
             }
 
