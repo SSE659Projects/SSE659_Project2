@@ -9,82 +9,79 @@ namespace CS_TickTackToe.Tests
 {
     public class TickTackToeTest
     {
-        [TestCase(0, 1, ExpectedResult = 1)]
-        [TestCase(1, 1, ExpectedResult = 1)]
-        [TestCase(2, 1, ExpectedResult = 1)]
-        [TestCase(0, 2, ExpectedResult = 2)]
-        [TestCase(1, 2, ExpectedResult = 2)]
-        [TestCase(2, 2, ExpectedResult = 2)]
-        public byte checkHorizontalWin(byte sidePosition, byte playerType)
+        [TestCase(0, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(1, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(2, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(0, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        [TestCase(1, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        [TestCase(2, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        public clsGameplay.EPlayer checkHorizontalWin(byte sidePosition, clsGameplay.EPlayer playerType)
 	    {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
             clsGame = new clsGameplay(picO);
 
-            clsGame.bytCurrentPositions[sidePosition, 0] = playerType;
-            clsGame.bytCurrentPositions[sidePosition, 1] = playerType;
-            clsGame.bytCurrentPositions[sidePosition, 2] = playerType;
+            clsGame.SetBoardPosition(playerType, sidePosition, 0, false);
+            clsGame.SetBoardPosition(playerType, sidePosition, 1, false);
+            clsGame.SetBoardPosition(playerType, sidePosition, 2, false);
 
-            clsGameplay.EPlayer player = clsGame.CheckForWinner();
-		    return (byte)player;
+            return clsGame.CheckForWinner(); 
 	    }
 
-        [TestCase(0, 1, ExpectedResult = 1)]
-        [TestCase(1, 1, ExpectedResult = 1)]
-        [TestCase(2, 1, ExpectedResult = 1)]
-        [TestCase(0, 2, ExpectedResult = 2)]
-        [TestCase(1, 2, ExpectedResult = 2)]
-        [TestCase(2, 2, ExpectedResult = 2)]
-        public byte checkVerticalWin(byte sidePosition, byte playerType)
+
+        [TestCase(0, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(1, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(2, clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(0, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        [TestCase(1, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        [TestCase(2, clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        public clsGameplay.EPlayer checkVerticalWin(byte sidePosition, clsGameplay.EPlayer playerType)
 	    {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
             clsGame = new clsGameplay(picO);
 
-            clsGame.bytCurrentPositions[0, sidePosition] = playerType;
-            clsGame.bytCurrentPositions[1, sidePosition] = playerType;
-            clsGame.bytCurrentPositions[2, sidePosition] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, sidePosition, false);
+            clsGame.SetBoardPosition(playerType, 1, sidePosition, false);
+            clsGame.SetBoardPosition(playerType, 2, sidePosition, false);
 
-            clsGameplay.EPlayer player = clsGame.CheckForWinner();
-            return (byte)player;
+            return clsGame.CheckForWinner();
 	    }
 
-        [TestCase(1, ExpectedResult = 1)]
-        [TestCase(2, ExpectedResult = 2)]
-        public byte checkDiagonalDownWin(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        public clsGameplay.EPlayer checkDiagonalDownWin(clsGameplay.EPlayer playerType)
 	    {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
             clsGame = new clsGameplay(picO);
 
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
 
-            clsGameplay.EPlayer player = clsGame.CheckForWinner();
-            return (byte)player;
+            return clsGame.CheckForWinner();
 	    }
 
-        [TestCase(1, ExpectedResult = 1)]
-        [TestCase(2, ExpectedResult = 2)]
-        public byte checkDiagonalUpWin(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN, ExpectedResult = clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = clsGameplay.EPlayer.E_COMPUTER)]
+        public clsGameplay.EPlayer checkDiagonalUpWin(clsGameplay.EPlayer playerType)
 	    {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
             clsGame = new clsGameplay(picO);
 
-            clsGame.bytCurrentPositions[0, 2] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 0] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
 
-            clsGameplay.EPlayer player = clsGame.CheckForWinner();
-            return (byte)player;
+            return clsGame.CheckForWinner();
 	    }
 
-        [TestCase(1, ExpectedResult = true)]
-        [TestCase(2, ExpectedResult = true)]
-        [TestCase(0, ExpectedResult = false)]
-        public bool checkGameTie(byte positionPlayerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN, ExpectedResult = true)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER, ExpectedResult = true)]
+        [TestCase(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, ExpectedResult = false)]
+        public bool checkGameTie(clsGameplay.EPlayer playerType)
 	    {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
@@ -94,17 +91,16 @@ namespace CS_TickTackToe.Tests
             {
                 for (int ii = 0; ii <= 2; ii++)
                 {
-                    clsGame.bytCurrentPositions[i, ii] = positionPlayerType;
+                    clsGame.SetBoardPosition(playerType, i, ii, false);
                 }
             }
 
-            bool isGameTie = clsGame.CheckForTie();
-		    return isGameTie;
+            return clsGame.CheckForTie();
 	    }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkHortizontalSequenceFirstRow(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkHortizontalSequenceFirstRow(clsGameplay.EPlayer playerType)
         {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
@@ -112,139 +108,34 @@ namespace CS_TickTackToe.Tests
 
             clsNextMovePosition nextMovePosition = new clsNextMovePosition();
 
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[0, 1] = playerType;
-            clsGame.bytCurrentPositions[0, 2] = 0;
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 0, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 0);
             Assert.AreEqual(nextMovePosition.PositionY, 2);
 
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[0, 1] = 0;
-            clsGame.bytCurrentPositions[0, 2] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 1, false);
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 0);
             Assert.AreEqual(nextMovePosition.PositionY, 1);
 
-            clsGame.bytCurrentPositions[0, 0] = 0;
-            clsGame.bytCurrentPositions[0, 1] = playerType;
-            clsGame.bytCurrentPositions[0, 2] = playerType;
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 0, 1, false);
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 0);
-            Assert.AreEqual(nextMovePosition.PositionY, 0);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkHortizontalSequenceSecondRow(byte playerType)
-        {
-            PictureBox picO = new PictureBox();
-            clsGameplay clsGame;
-            clsGame = new clsGameplay(picO);
-
-            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
-
-            clsGame.bytCurrentPositions[1, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[1, 2] = 0;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
-
-            clsGame.bytCurrentPositions[1, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = 0;
-            clsGame.bytCurrentPositions[1, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-
-            clsGame.bytCurrentPositions[1, 0] = 0;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[1, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 0);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkHortizontalSequenceThirdRow(byte playerType)
-        {
-            PictureBox picO = new PictureBox();
-            clsGameplay clsGame;
-            clsGame = new clsGameplay(picO);
-
-            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
-
-            clsGame.bytCurrentPositions[2, 0] = playerType;
-            clsGame.bytCurrentPositions[2, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = 0;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
-
-            clsGame.bytCurrentPositions[2, 0] = playerType;
-            clsGame.bytCurrentPositions[2, 1] = 0;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-
-            clsGame.bytCurrentPositions[2, 0] = 0;
-            clsGame.bytCurrentPositions[2, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 0);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkVerticalSequenceFirstColumn(byte playerType)
-        {
-            PictureBox picO = new PictureBox();
-            clsGameplay clsGame;
-            clsGame = new clsGameplay(picO);
-
-            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
-
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 0] = playerType;
-            clsGame.bytCurrentPositions[2, 0] = 0;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 0);
-
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 0] = 0;
-            clsGame.bytCurrentPositions[2, 0] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 0);
-
-            clsGame.bytCurrentPositions[0, 0] = 0;
-            clsGame.bytCurrentPositions[1, 0] = playerType;
-            clsGame.bytCurrentPositions[2, 0] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 0);
             Assert.AreEqual(nextMovePosition.PositionY, 0);
         }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkVerticalSequenceSecondColumn(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkHortizontalSequenceSecondRow(clsGameplay.EPlayer playerType)
         {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
@@ -252,69 +143,34 @@ namespace CS_TickTackToe.Tests
 
             clsNextMovePosition nextMovePosition = new clsNextMovePosition();
 
-            clsGame.bytCurrentPositions[0, 1] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 1] = 0;
+            clsGame.SetBoardPosition(playerType, 1, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-
-            clsGame.bytCurrentPositions[0, 1] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = 0;
-            clsGame.bytCurrentPositions[2, 1] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-
-            clsGame.bytCurrentPositions[0, 1] = 0;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 1] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 0);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkVerticalSequenceThirdColumn(byte playerType)
-        {
-            PictureBox picO = new PictureBox();
-            clsGameplay clsGame;
-            clsGame = new clsGameplay(picO);
-
-            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
-
-            clsGame.bytCurrentPositions[0, 2] = playerType;
-            clsGame.bytCurrentPositions[1, 2] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = 0;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
-
-            clsGame.bytCurrentPositions[0, 2] = playerType;
-            clsGame.bytCurrentPositions[1, 2] = 0;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 1);
             Assert.AreEqual(nextMovePosition.PositionY, 2);
 
-            clsGame.bytCurrentPositions[0, 2] = 0;
-            clsGame.bytCurrentPositions[1, 2] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
+            clsGame.SetBoardPosition(playerType, 1, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 1, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 0);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 1, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 0);
         }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkDiagonalUpSequence(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkHortizontalSequenceThirdRow(clsGameplay.EPlayer playerType)
         {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
@@ -322,69 +178,69 @@ namespace CS_TickTackToe.Tests
 
             clsNextMovePosition nextMovePosition = new clsNextMovePosition();
 
-            clsGame.bytCurrentPositions[0, 2] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 0] = 0;
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
+            clsGame.SetBoardPosition(playerType, 2, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 2, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 0, false);
+            clsGame.SetBoardPosition(playerType, 2, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 0);
+        }
+
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkVerticalSequenceFirstColumn(clsGameplay.EPlayer playerType)
+        {
+            PictureBox picO = new PictureBox();
+            clsGameplay clsGame;
+            clsGame = new clsGameplay(picO);
+
+            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
+
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 0, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 2);
             Assert.AreEqual(nextMovePosition.PositionY, 0);
 
-            clsGame.bytCurrentPositions[0, 2] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = 0;
-            clsGame.bytCurrentPositions[2, 0] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 0, false);
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 0);
 
-            clsGame.bytCurrentPositions[0, 2] = 0;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 0] = playerType;
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 0, false);
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 0);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
-        }
-
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkDiagonalDownSequence(byte playerType)
-        {
-            PictureBox picO = new PictureBox();
-            clsGameplay clsGame;
-            clsGame = new clsGameplay(picO);
-
-            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
-
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = 0;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 2);
-            Assert.AreEqual(nextMovePosition.PositionY, 2);
-
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = 0;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
-            Assert.AreEqual(nextMovePosition.PositionX, 1);
-            Assert.AreEqual(nextMovePosition.PositionY, 1);
-
-            clsGame.bytCurrentPositions[0, 0] = 0;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
-
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, 0);
             Assert.AreEqual(nextMovePosition.PositionY, 0);
         }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        public void checkNoSequence(byte playerType)
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkVerticalSequenceSecondColumn(clsGameplay.EPlayer playerType)
         {
             PictureBox picO = new PictureBox();
             clsGameplay clsGame;
@@ -392,13 +248,154 @@ namespace CS_TickTackToe.Tests
 
             clsNextMovePosition nextMovePosition = new clsNextMovePosition();
 
-            clsGame.bytCurrentPositions[0, 0] = playerType;
-            clsGame.bytCurrentPositions[1, 1] = playerType;
-            clsGame.bytCurrentPositions[2, 2] = playerType;
+            clsGame.SetBoardPosition(playerType, 0, 1, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 1, false);
 
-            clsGame.FindTwoInSequence(nextMovePosition, playerType);
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(playerType, 0, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 1, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 1, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 1, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 0);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+        }
+
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkVerticalSequenceThirdColumn(clsGameplay.EPlayer playerType)
+        {
+            PictureBox picO = new PictureBox();
+            clsGameplay clsGame;
+            clsGame = new clsGameplay(picO);
+
+            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
+
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
+            clsGame.SetBoardPosition(playerType, 1, 2, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 2, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 2, false);
+            clsGame.SetBoardPosition(playerType, 1, 2, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 0);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+        }
+
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkDiagonalUpSequence(clsGameplay.EPlayer playerType)
+        {
+            PictureBox picO = new PictureBox();
+            clsGameplay clsGame;
+            clsGame = new clsGameplay(picO);
+
+            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
+
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 0, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 0);
+
+            clsGame.SetBoardPosition(playerType, 0, 2, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 2, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 0, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 0);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+        }
+
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkDiagonalDownSequence(clsGameplay.EPlayer playerType)
+        {
+            PictureBox picO = new PictureBox();
+            clsGameplay clsGame;
+            clsGame = new clsGameplay(picO);
+
+            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
+
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 2);
+            Assert.AreEqual(nextMovePosition.PositionY, 2);
+
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 1);
+            Assert.AreEqual(nextMovePosition.PositionY, 1);
+
+            clsGame.SetBoardPosition(clsGameplay.EPlayer.E_NOT_SET_OR_DEFINED, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
+            Assert.AreEqual(nextMovePosition.PositionX, 0);
+            Assert.AreEqual(nextMovePosition.PositionY, 0);
+        }
+
+        [TestCase(clsGameplay.EPlayer.E_HUMAN)]
+        [TestCase(clsGameplay.EPlayer.E_COMPUTER)]
+        public void checkNoSequence(clsGameplay.EPlayer playerType)
+        {
+            PictureBox picO = new PictureBox();
+            clsGameplay clsGame;
+            clsGame = new clsGameplay(picO);
+
+            clsNextMovePosition nextMovePosition = new clsNextMovePosition();
+
+            clsGame.SetBoardPosition(playerType, 0, 0, false);
+            clsGame.SetBoardPosition(playerType, 1, 1, false);
+            clsGame.SetBoardPosition(playerType, 2, 2, false);
+
+            clsGame.FindTwoInSequence(nextMovePosition, (byte)playerType);
             Assert.AreEqual(nextMovePosition.PositionX, clsGameplay.UNDEFINED_MOVE);
             Assert.AreEqual(nextMovePosition.PositionY, clsGameplay.UNDEFINED_MOVE);
         }
+         
     }
 }

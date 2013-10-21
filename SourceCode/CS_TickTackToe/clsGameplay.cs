@@ -24,7 +24,6 @@ namespace CS_TickTackToe
 		public int intCompScore = 0;
 		public clsPictureCollection clsPicCol;
 		private EPlayer m_Winner = EPlayer.E_NOT_SET_OR_DEFINED;
-        //private clsNextMovePosition m_NextMovePosition;
 
         public enum EGameDifficulty
         {
@@ -38,7 +37,7 @@ namespace CS_TickTackToe
 		private PictureBox picO;
 		//Jagged array that corresponds to the pictures
 		//0 = not set, 1 = human, 2 = computer
-        public byte[,] bytCurrentPositions = new byte[3, 3];
+        private byte[,] bytCurrentPositions = new byte[3, 3];
 
         public EPlayer GameWinner
         {
@@ -73,12 +72,12 @@ namespace CS_TickTackToe
 			clsPicCol.Clear_Pictures();
 		}
 
-		public void SetBoardPosition(EPlayer player, int intDim1, int intDim2)
+		public void SetBoardPosition(EPlayer player, int intDim1, int intDim2, bool bCheckForWinner=true)
 		{
             bytCurrentPositions[intDim1, intDim2] = (byte)player;
 
-			//Check for a win
-            m_Winner = CheckForWinner();
+            if (bCheckForWinner)
+                m_Winner = CheckForWinner();
 		}
 
 		public void ComputerMoveAI()
