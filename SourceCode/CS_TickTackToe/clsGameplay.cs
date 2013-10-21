@@ -88,18 +88,8 @@ namespace CS_TickTackToe
 				//two random numbers between
 				//0 and 2 and check if the spot
 				//is taken, if not take it
-				try
-				{
-					System.Random rnd = new System.Random();
-					System.GC.Collect();
-
-                    RandomComputerMove(rnd);
-				}
-				catch (System.Exception e)
-				{
-					clsPicCol.sbStatus.Panels[1].Text = e.Message;
-					clsPicCol.sbStatus.Panels[1].ToolTipText = e.Message;
-				}
+                RandomComputerMove(new System.Random());
+	
 			}
             else if (m_GameDifficulty == EGameDifficulty.E_MEDIUM)
 			{
@@ -116,8 +106,7 @@ namespace CS_TickTackToe
 				{
 					//If no defensive move then
 					//go random again
-					System.Random rnd = new System.Random();
-                    RandomComputerMove(rnd);
+                    RandomComputerMove(new System.Random());
 				}
 			}
             else if (m_GameDifficulty == EGameDifficulty.E_HARD)
@@ -144,8 +133,7 @@ namespace CS_TickTackToe
 				{
 					//If no defensive or offensive move so
 					//go random again
-					System.Random rnd = new System.Random();
-					RandomComputerMove(rnd);
+                    RandomComputerMove(new System.Random());
 				}
 			}
             m_Player = EPlayer.E_HUMAN;
