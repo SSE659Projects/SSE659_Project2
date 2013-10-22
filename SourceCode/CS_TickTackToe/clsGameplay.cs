@@ -1,12 +1,12 @@
+// clsGameplay.cs - Class that contains methods for starting a new game,
+// setting the positions on the Tic Tac Toe board, the logic method for
+// the computer opponent's AI, determining winning combinations, and 
+// checking for a tied game.
 using System;
 using System.Windows.Forms;
 
 namespace CS_TickTackToe
 {
-	/// <summary>
-	/// Summary description for clsGameplay.
-	/// </summary>
-	
 	public class clsGameplay
 	{
         public const int UNDEFINED_MOVE = 10;
@@ -32,8 +32,6 @@ namespace CS_TickTackToe
         private EGameDifficulty m_GameDifficulty = EGameDifficulty.E_EASY;
 
 		private PictureBox picO;
-		//Jagged array that corresponds to the pictures
-		//0 = not set, 1 = human, 2 = computer
         private byte[,] bytCurrentPositions = new byte[3, 3];
 
         public EPlayer GameWinner
@@ -51,13 +49,16 @@ namespace CS_TickTackToe
             set { m_GameDifficulty = value; }
         }
 
+        // Constructor for clsGameplay
 		public clsGameplay(PictureBox picOHolder)
 		{
 			picO = picOHolder;
 		}
+
+        // Function for resetting the Tic Tac Toe board for a new game
 		public void NewGame()
 		{
-			//Rest all of the variables
+			//Sets all board positions to zero
 			for (int i = 0; i <= 2; i++)
 			{
 				for (int ii = 0; ii <= 2; ii++)
@@ -65,10 +66,10 @@ namespace CS_TickTackToe
                     bytCurrentPositions[i, ii] = (byte)EPlayer.E_NOT_SET_OR_DEFINED;		
 				}				
 			}
-			//Reset the pictures
-			clsPicCol.Clear_Pictures();
+			clsPicCol.Clear_Pictures(); // Resets the Tic Tac Toe board
 		}
 
+        // Function for setting the board positions  
 		public void SetBoardPosition(EPlayer player, int intDim1, int intDim2, bool bCheckForWinner=true)
 		{
             bytCurrentPositions[intDim1, intDim2] = (byte)player;
@@ -77,6 +78,7 @@ namespace CS_TickTackToe
                 m_Winner = CheckForWinner();
 		}
 
+        // Function for determining the Computer opponent AI based on human's position
 		public void ComputerMoveAI()
 		{
             if (m_GameDifficulty == EGameDifficulty.E_EASY)
@@ -135,7 +137,8 @@ namespace CS_TickTackToe
 			}
             m_Player = EPlayer.E_HUMAN;
 		}
-		
+
+        // Function for positioning the computer's random move
 		public void RandomComputerMove(Random randomNumber)
         {
             int positionX = randomNumber.Next(0, 3);
@@ -161,6 +164,7 @@ namespace CS_TickTackToe
             }
         }
 
+        // Function for setting the computer's position on the board
         private void SetComputerPosition(int positionX, int positionY)
         {
             SetBoardPosition(EPlayer.E_COMPUTER, positionX, positionY);
@@ -175,6 +179,7 @@ namespace CS_TickTackToe
             }
         }
 
+        // Function for checking if the there is a win on the board
 		public EPlayer CheckForWinner()
 		{
             //Check for a horizontal win
@@ -236,6 +241,7 @@ namespace CS_TickTackToe
             return (EPlayer)0; //No winner
 		}
 
+        // Function for checking if the game has ended in a tie
 		public bool CheckForTie()
 		{
 			//Loop through all of the positions
@@ -302,38 +308,36 @@ namespace CS_TickTackToe
             }
 		}
 
+        // Function used to find a horizontal sequence on the board
         public bool FoundHorizontalSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             for (byte i = 0; i <= 2; i++)
             {
+                // Checks if there is a sequence in the last row
                 if (bytCurrentPositions[i, 0] == bytPlayer &&
                     bytCurrentPositions[i, 1] == bytPlayer &&
                     bytCurrentPositions[i, 2] == 0)
                 {
-                    //bytMoveArray[0] = i;
-                    //bytMoveArray[1] = 2;
                     nextMovePosition.PositionX = i;
                     nextMovePosition.PositionY = 2;
                     return true;
                 }
 
+                // Checks if there is a sequence in the middle row
                 else if (bytCurrentPositions[i, 0] == bytPlayer &&
                     bytCurrentPositions[i, 2] == bytPlayer &&
                     bytCurrentPositions[i, 1] == 0)
                 {
-                    //bytMoveArray[0] = i;
-                    //bytMoveArray[1] = 1;
                     nextMovePosition.PositionX = i;
                     nextMovePosition.PositionY = 1;
                     return true;
                 }
 
+                // Checks if there is a sequence in the first row
                 else if (bytCurrentPositions[i, 1] == bytPlayer &&
                     bytCurrentPositions[i, 2] == bytPlayer &&
                     bytCurrentPositions[i, 0] == 0)
                 {
-                    //bytMoveArray[0] = i;
-                    //bytMoveArray[1] = 0;
                     nextMovePosition.PositionX = i;
                     nextMovePosition.PositionY = 0;
                     return true;
@@ -342,38 +346,36 @@ namespace CS_TickTackToe
             return false;
         }
 
+        // Function used to find a vertical sequence on the board
         public bool FoundVerticalSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             for (byte i = 0; i <= 2; i++)
             {
+                // Checks if there is a sequence in the last column
                 if (bytCurrentPositions[0, i] == bytPlayer &&
                     bytCurrentPositions[1, i] == bytPlayer &&
                     bytCurrentPositions[2, i] == 0)
                 {
-                    //bytMoveArray[0] = 2;
-                    //bytMoveArray[1] = i;
                     nextMovePosition.PositionX = 2;
                     nextMovePosition.PositionY = i;
                     return true;
                 }
 
+                // Checks if there is a sequence in the middle column
                 else if (bytCurrentPositions[0, i] == bytPlayer &&
                     bytCurrentPositions[2, i] == bytPlayer &&
                     bytCurrentPositions[1, i] == 0)
                 {
-                    //bytMoveArray[0] = 1;
-                    //bytMoveArray[1] = i;
                     nextMovePosition.PositionX = 1;
                     nextMovePosition.PositionY = i;
                     return true;
                 }
 
+                // Checks if there is a sequence in the first column
                 else if (bytCurrentPositions[1, i] == bytPlayer &&
                     bytCurrentPositions[2, i] == bytPlayer &&
                     bytCurrentPositions[0, i] == 0)
                 {
-                    //bytMoveArray[0] = 0;
-                    //bytMoveArray[1] = i;
                     nextMovePosition.PositionX = 0;
                     nextMovePosition.PositionY = i;
                     return true;
@@ -382,14 +384,13 @@ namespace CS_TickTackToe
             return false;
         }
 
+        // Function used to find a diagonal positive slope sequence on the board
         public bool FoundDiagonalPositiveSlopeSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             if (bytCurrentPositions[0, 2] == bytPlayer &&
                 bytCurrentPositions[1, 1] == bytPlayer &&
                  bytCurrentPositions[2, 0] == 0)
             {
-                //bytMoveArray[0] = 2;
-                //bytMoveArray[1] = 0;
                 nextMovePosition.PositionX = 2;
                 nextMovePosition.PositionY = 0;
                 return true;
@@ -399,8 +400,6 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 0] == bytPlayer &&
                 bytCurrentPositions[1, 1] == 0)
             {
-                //bytMoveArray[0] = 1;
-                //bytMoveArray[1] = 1;
                 nextMovePosition.PositionX = 1;
                 nextMovePosition.PositionY = 1;
                 return true;
@@ -410,8 +409,6 @@ namespace CS_TickTackToe
                  bytCurrentPositions[2, 0] == bytPlayer &&
                  bytCurrentPositions[0, 2] == 0)
             {
-                //bytMoveArray[0] = 0;
-                //bytMoveArray[1] = 2;
                 nextMovePosition.PositionX = 0;
                 nextMovePosition.PositionY = 2;
                 return true;
@@ -421,14 +418,13 @@ namespace CS_TickTackToe
                 return false;
         }
 
+        // Function used to find a diagonal negative slope sequence on the board
         public bool FoundDiagonalNegativeSlopeSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
         {
             if (bytCurrentPositions[0, 0] == bytPlayer &&
                 bytCurrentPositions[1, 1] == bytPlayer &&
                 bytCurrentPositions[2, 2] == 0)
             {
-                //bytMoveArray[0] = 2;
-                //bytMoveArray[1] = 2;
                 nextMovePosition.PositionX = 2;
                 nextMovePosition.PositionY = 2;
                 return true;
@@ -438,8 +434,6 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 2] == bytPlayer &&
                 bytCurrentPositions[1, 1] == 0)
             {
-                //bytMoveArray[0] = 1;
-                //bytMoveArray[1] = 1;
                 nextMovePosition.PositionX = 1;
                 nextMovePosition.PositionY = 1;
                 return true;
@@ -449,8 +443,6 @@ namespace CS_TickTackToe
                 bytCurrentPositions[2, 2] == bytPlayer &&
                 bytCurrentPositions[0, 0] == 0)
             {
-                //bytMoveArray[0] = 0;
-                //bytMoveArray[1] = 0;
                 nextMovePosition.PositionX = 0;
                 nextMovePosition.PositionY = 0;
                 return true;

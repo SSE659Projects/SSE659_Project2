@@ -92,6 +92,7 @@
     <Compile Include="clsGameplay.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="clsNextMovePosition.cs" />
     <Compile Include="clsPictureCollection.cs">
       <SubType>Code</SubType>
     </Compile>
