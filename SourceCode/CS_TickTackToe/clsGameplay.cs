@@ -135,7 +135,6 @@ namespace CS_TickTackToe
                     RandomComputerMove(new System.Random());
 				}
 			}
-            m_Player = EPlayer.E_HUMAN;
 		}
 
         // Function for positioning the computer's random move
@@ -292,13 +291,10 @@ namespace CS_TickTackToe
 		//  | |x     | |      | |x
 		public void FindTwoInSequence(clsNextMovePosition nextMovePosition, byte bytPlayer)
 		{
-            if (FoundHorizontalSequence(nextMovePosition, bytPlayer))
-                return;
-            else if (FoundVerticalSequence(nextMovePosition, bytPlayer))
-                return;
-            else if (FoundDiagonalNegativeSlopeSequence(nextMovePosition, bytPlayer))
-                return;
-            else if (FoundDiagonalPositiveSlopeSequence(nextMovePosition, bytPlayer))
+            if (FoundHorizontalSequence(nextMovePosition, bytPlayer) || 
+                FoundVerticalSequence(nextMovePosition, bytPlayer) ||
+                FoundDiagonalNegativeSlopeSequence(nextMovePosition, bytPlayer) ||
+                FoundDiagonalPositiveSlopeSequence(nextMovePosition, bytPlayer))
                 return;
             else
             {
